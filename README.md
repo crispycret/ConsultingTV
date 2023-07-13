@@ -52,7 +52,12 @@
                                                                 |___________|   
                                                                    
 ```                                                        
-                                                                   
+
+
+
+## Checkout
+
+### [Rough Draft Sketches](https://github.com/crispycret/ConsultingTV/tree/main/docs/sketch/rough-draft)
 
 
 
