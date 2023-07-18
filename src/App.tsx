@@ -7,8 +7,12 @@ import './assets/styles/App.css';
 import { MainLayout } from 'components/layouts/MainLayout';
 import { HomePage } from 'pages/HomePage';
 import QuotePage from 'pages/QuotePage';
+import ComingSoonPage from 'pages/ComingSoonPage';
 
 function App() {
+
+  const underMaintenance = true
+
   return (
     <div className="App">
       
@@ -25,8 +29,15 @@ function App() {
         */}
             {/* <Route index element={<HomePage />} /> */}
 
-            <Route index path='/' element={<HomePage />} />
-            <Route path="/quote" element={<QuotePage />} />
+            { underMaintenance ?
+              <Route index path='/' element={<ComingSoonPage />} />
+            :
+              <>
+                <Route index path='/' element={<HomePage />} />
+                <Route path="/quote" element={<QuotePage />} />
+              </>
+            }
+
         
           {/* <Route path="/" element={<div className='p-5 m-5'>INDEX</div>}>
             <Route path="quote" element={<QuestionaireForm />} />

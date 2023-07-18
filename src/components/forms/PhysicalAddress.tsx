@@ -140,11 +140,11 @@ export const PhysicalAddress = ({setPhysicalAddress, onSubmit}:any) => {
         </Form.Group>
       </Row>
 
-      <div className="text-center">
+      {/* <div className="text-center">
         <Button variant="primary" type="submit" size='lg' onSubmit={(e) => handleSubmit(e)}>
           <span className='px-4 mx-4'>Next</span>
         </Button>
-      </div>
+      </div> */}
     </Form>
   );
 }

@@ -1,9 +1,9 @@
 import PhysicalAddress from "components/forms/PhysicalAddress";
 import QuestionaireForm from "components/forms/QuestionaireForm";
 import { useState } from "react";
+import { Button, Col, Row } from "react-bootstrap";
 
 export const QuotePage = () => {
-
 
     const maxPage = 3
     const [page, setPage] = useState(1)
@@ -17,9 +17,14 @@ export const QuotePage = () => {
     })
 
     const [questionaire, setQuestionaire] = useState({
-        questions: [],
-        answers: []
     })
+
+    const prevPage = () => {
+        if (page === 1) {
+            return
+        }
+        setPage(page - 1)
+    }
 
     const nextPage = () => {
         if (page === maxPage) {
@@ -50,7 +55,25 @@ export const QuotePage = () => {
             { page === 2 &&
                 <QuestionaireForm />
             }
+
+            <Row className="text-center">
+
+                <Col>
+                {/* <Button variant="primary" type="submit" size='lg' onSubmit={(e) => handleSubmit(e)}> */}
+                <Button variant="primary" type="submit" size='lg' onSubmit={(e) => prevPage()} onClick={prevPage}>
+                    <span className='px-4 mx-4'>Prev</span>
+                </Button>
+                </Col>
+
+                <Col>
+                <Button variant="primary" type="submit" size='lg' onSubmit={(e) => nextPage()} onClick={nextPage}>
+                    <span className='px-4 mx-4'>Next</span>
+                </Button>
+                </Col>
+            </Row>
         </div>
+
+
     )
 
 }
