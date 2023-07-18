@@ -17,11 +17,12 @@ export const MainLayout = ({ children }: any) => {
   // const { mobile } = useMobile()
 
   return (
+
     <div className="d-flex flex-column min-vh-100">
 
       <NavScroll />
       
-      <main className="flex-grow-1 bg-light">
+      <main className="flex-grow-1 d-flex bg-light">
         { children }
       </main>
 

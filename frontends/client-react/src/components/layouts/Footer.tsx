@@ -4,7 +4,7 @@ import { BsLinkedin, BsGithub } from "react-icons/bs";
 
 export const Footer = () => {
   return (
-    <Container fluid className="bg-dark text-light text-center py-3 bottom-0">
+    <Container fluid className="bg-dark text-light text-center bottom-0">
       <Row>
         <Col md={12} className="mx-auto my-auto text-center">
           <p>

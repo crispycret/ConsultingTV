@@ -4,77 +4,68 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
+import QUESTIONS from 'assets/data/questionaire.json'
 
 export const QuestionaireForm = () => {
     
-    
-    const [questions, setQuestions] = useState({
 
-    })
+    const [answers, setAnswers] = useState(QUESTIONS.length)
+
+    console.log(answers)
+    console.log(QUESTIONS)
+
 
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
     }
 
+    
     return (
+      <>
+        {/* <form 
+          method="POST"  action="https://docs.google.com/forms/d/{YOUR_FORM_ID_HERE}/formResponse"
+        >
+          <input className="input" type="text" placeholder="Name" />
+          <input className="input" type="email" placeholder="Email" />
+          <button className="button" type="submit" >
+            Submit
+          </button>
+        </form>
+
+         */}
         <Form onSubmit={handleSubmit}>
           <Row className="mb-3">
-    
-          {/* <Form.Group as={Col} controlId="formGridFullName"> */}
-          <Form.Group controlId="fullname">
-              <Form.Label>Full Name</Form.Label>
-              <Form.Control type="name" placeholder="John Doe" />
-            </Form.Group>
-    
-            {/* <Form.Group as={Col} controlId="formGridPhoneNumber"> */}
-            <Form.Group controlId="formGridPhoneNumber">
-              <Form.Label>Phone Number</Form.Label>
-              {/* <Form.Control type="phone" placeholder="(255) 555-5555" value={phoneNumber} onInput={handlePhoneNumberInput}/> */}
-            </Form.Group>
           </Row>
-    
-          <Form.Group className="mb-3" controlId="formGridAddress1">
-            <Form.Label>Address</Form.Label>
-            <Form.Control placeholder="1234 Main St" />
-          </Form.Group>
-    
-          <Form.Group className="mb-3" controlId="formGridAddress2">
-            <Form.Label>Address 2</Form.Label>
-            <Form.Control placeholder="Apartment, studio, or floor" />
-          </Form.Group>
     
           <Row className="mb-3">
-            <Form.Group as={Col} controlId="formGridCity">
-              <Form.Label>City</Form.Label>
-              <Form.Control />
-            </Form.Group>
-    
-            <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>State</Form.Label>
-              <Form.Select defaultValue="Choose...">
-                <option>Choose...</option>
-{/*                 
-                {states.map((state) => (
-                  <option key={state}>{state}</option>
-                ))}
- */}
-                
-              </Form.Select>
-            </Form.Group>
-    
-            <Form.Group as={Col} controlId="formGridZip">
-              <Form.Label>Zip</Form.Label>
-              <Form.Control />
-            </Form.Group>
+
+            {QUESTIONS.map((question, i) => (
+                <Form.Group className='my-1' key={i}>
+                    <Form.Label>{question.title}</Form.Label>
+                    {question.multipleChoice ? (
+                        <Form.Select defaultValue="Choose...">
+                            {question.options.map((option) => (
+                                <option key={option}>{option}</option>
+                            ))}
+                        </Form.Select>
+                    ) : (
+                        <Form.Control />
+                    )}
+
+                </Form.Group>
+            ))}
+
           </Row>
     
-          <div className="text-center">
+          {/* <div className="text-center">
             <Button variant="primary" type="submit" size='lg' onSubmit={(e) => handleSubmit(e)}>
               <span className='px-4 mx-4'>Next</span>
             </Button>
-          </div>
+          </div> */}
         </Form>
+      </>
+
       );
 
 }
