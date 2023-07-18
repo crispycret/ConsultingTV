@@ -9,8 +9,9 @@ const EmailInputWithButton = () => {
         placeholder="Enter email"
         aria-label="Email"
         aria-describedby="send-button"
+        disabled
       />
-      <Button id="send-button" variant="primary">Send</Button>
+      <Button id="send-button" variant="primary" disabled>Send</Button>
     </InputGroup>
   );
 };

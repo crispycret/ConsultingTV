@@ -10,7 +10,7 @@ export const Footer = () => {
           <p>
             <a href="https://www.github.com/crispycret" className="text-light mx-1" ><BsGithub /></a>
             <a href="https://www.linkedin.com/in/brandon-nadeau-705123254/" className="text-light mx-1 me-3" ><BsLinkedin /></a>
-            &copy; 2023 Brandon Nadeau. All rights reserved. | Built with React and Bootstrap using TypeScript. <a href="https://github.com/crispycret/portfolio">View Source</a>
+            &copy; 2023 ConsultingTV. All rights reserved. | Built with React, Twitter Bootstrap using TypeScript. <a href="https://github.com/crispycret/ConsultingTV">View Source</a>
           </p>
         </Col>
       </Row>
