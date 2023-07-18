@@ -23,7 +23,7 @@ export const ComingSoonPage = () => {
                 </div>
                 <div>
                     <h3 className='text-center'>Hello,</h3>
-                    <p className='text-center'>Thanks for Stopping, Were exicited to show you what were cooking up soon.</p>
+                    <p className='text-center'>Thanks for stopping by, we're exicited to show you what we have cooking up soon.</p>
                     <p className='text-center'>We are currently under development but encourage you to sign up for our services.</p>
                     <div className="mt-5 mx-5">
                         <EmailInputWithButton />
