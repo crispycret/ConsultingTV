@@ -8,6 +8,7 @@ import { MainLayout } from 'components/layouts/MainLayout';
 import { HomePage } from 'pages/HomePage';
 import QuotePage from 'pages/QuotePage';
 import ComingSoonPage from 'pages/ComingSoonPage';
+import StandardComingSoonPage from 'pages/StandardComingSoonPage';
 
 function App() {
 
@@ -30,8 +31,9 @@ function App() {
             {/* <Route index element={<HomePage />} /> */}
 
             { underMaintenance ?
-              <Route index path='/' element={<ComingSoonPage />} />
-            :
+              <Route index path='/' element={<StandardComingSoonPage />} />
+              // <Route index path='/' element={<ComingSoonPage />} />
+              :
               <>
                 <Route index path='/' element={<HomePage />} />
                 <Route path="/quote" element={<QuotePage />} />
