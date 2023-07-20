@@ -3,6 +3,7 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 // import useMobile from 'utils/common/hooks/useMobile'
 import useMobile from '../../utils/common/hooks/useMobile'
+import axios from "axios";
 
 export const ContactForm = ({onSubmit}: any) => {
 
@@ -10,14 +11,70 @@ export const ContactForm = ({onSubmit}: any) => {
 
 
     const handleSubmit = (event:any) => {
+
         event.preventDefault();
         // After precocessing the data forward the form data to the parents onSubmit function
+
+        console.log()
+
+        // Forward to API
+        hubspotAPI_SendContactForm(event)
         onSubmit(event)
     }
     const handlePhoneNumberInput = (event:any) => { 
         event.preventDefault();
         console.log(event.target.value)
     }
+
+
+
+      // https://legacydocs.hubspot.com/docs/methods/forms/forms_overview
+    // Instead of a form use the contacts batch update to add the email to the contacts list
+    // Or create a wrapper that does the form and the batch update 
+    const hubspotAPI_SendContactForm = async ( event: any ) => {
+  
+        console.log(`Sending Contact Form: ${process.env.REACT_APP_BACKEND_ENDPOINT}`)
+        const portal_id = process.env.REACT_APP_HUBSPOT_PORTAL_ID
+        const form_id = process.env.REACT_APP_HUBSPOT_CONTACT_FORM_ID
+        const email = event.target.email.value
+        const firstname = event.target.firstName.value
+        const lastname = event.target.lastName.value
+        const phone = event.target.phone.value
+  
+        const payload = {portal_id, form_id, email, firstname, lastname, phone }
+
+        console.log(payload)
+  
+        try {
+          const response = await axios.post(
+            `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/forms/contact/submit`, 
+            payload, 
+          )
+          
+            if (response.status === 200) {
+            console.log(response)
+          } else if (response.status === 204) {
+            console.log(response)
+          } else if (response.status === 400) {
+            console.log(response)
+          } else if (response.status === 403) {
+            console.log(response)
+          } else if (response.status === 404) {
+            console.log(response)
+          } else if (response.status === 500) {
+            console.log(response)
+          } else {
+            console.log(response)
+          }
+  
+        } catch (error) {
+          console.log(error)
+        }
+              
+      }
+  
+
+
 
     return (
         <Form onSubmit={(e) => handleSubmit(e)}>

@@ -7,12 +7,6 @@ import ContactForm from '../components/forms/ContactForm';
 
 export const StandardComingSoonPage = () => {
 
-  const PORTAL_ID = 40825582
-  const FORM_GUID = '173c9c27-7e0c-488a-9a62-3618d37a70f3'
-
-  const FORM_SUBMISSION_URL = `https://api.hsforms.com/submissions/v3/integration/secure/submit/${PORTAL_ID}/${FORM_GUID}`
-  const OAUTH_TOKEN = 'pat-na1-c9dba1c0-2e13-450e-9588-44c56b536a84'
-
     // Using Twitter Bootstrap and react-bootstrap Create a Coming Soon Page that has the following:
     // 1. A Header with the following:
     //     a. Cut The Cord and Save Now
@@ -29,97 +23,7 @@ export const StandardComingSoonPage = () => {
     //     c. A message that says "(774) 454-1621" that is centered and uses a good font.
 
 
-    // https://legacydocs.hubspot.com/docs/methods/forms/forms_overview
-    // Instead of a form use the contacts batch update to add the email to the contacts list
-    // Or create a wrapper that does the form and the batch update 
-    const hubspotAPI_SendContactForm = async ( event: any ) => {
-      event.preventDefault();
-
-
-      const email = event.target.email.value
-      const firstname = event.target.firstName.value
-      const lastname = event.target.lastName.value
-      const phone = event.target.phone.value
-
-      const config = {
-        headers: { Authorization: `Bearer ${OAUTH_TOKEN}` }
-    };
-    
-
-      const formData = 
-      {
-        // "submittedAt": "1517927174000", // This millisecond timestamp is optional. Update the value from "1517927174000" to avoid an INVALID_TIMESTAMP error.
-        "fields": [
-          {
-            "objectTypeId": "0-1",
-            "name": "email",
-            "value": email
-          },
-          {
-          "objectTypeId": "0-1",
-            "name": "firstname",
-            "value": firstname
-          },
-          {
-          "objectTypeId": "0-1",
-            "name": "lastname",
-            "value": lastname
-          },
-          {
-          "objectTypeId": "0-1",
-            "name": "phone",
-            "value": phone
-          }
-        ],
-        // "context": {
-        //   "hutk": ":hutk", // include this parameter and set it to the hubspotutk cookie value to enable cookie tracking on your submission
-        //   "pageUri": "www.cutthecord.com/contact",
-        //   "pageName": "Basic Contact Form"
-        // },
-        "legalConsentOptions": {
-          "consent": { // Include this object when GDPR options are enabled
-            "consentToProcess": true,
-            "text": "I agree to allow Example Company to store and process my personal data.",
-            "communications": [
-              {
-                "value": true,
-                "subscriptionTypeId": 999,
-                "text": "I agree to receive marketing communications from Example Company."
-              }
-            ]
-          }
-        }
-      }
-
-      try {
-        const response = await axios.post(
-          'https://api.hubapi.com/contacts/v1/contact/batch/?hapikey=demo', 
-          formData, 
-          config
-        )
-        
-          if (response.status === 200) {
-          console.log(response)
-        } else if (response.status === 204) {
-          console.log(response)
-        } else if (response.status === 400) {
-          console.log(response)
-        } else if (response.status === 403) {
-          console.log(response)
-        } else if (response.status === 404) {
-          console.log(response)
-        } else if (response.status === 500) {
-          console.log(response)
-        } else {
-          console.log(response)
-        }
-
-      } catch (error) {
-        console.log(error)
-      }
-            
-    }
-
+  
 
       return (
         <Container fluid className="bg-dark text-light d-flex flex-column">
@@ -137,7 +41,7 @@ export const StandardComingSoonPage = () => {
               </main>
 
               <footer>
-                <ContactForm onSubmit={hubspotAPI_SendContactForm}/>
+                <ContactForm onSubmit={ () => {}}/>
 
               </footer>
               
@@ -146,10 +50,16 @@ export const StandardComingSoonPage = () => {
 
           </main>
 
-          <footer className="flex-grow-1 text-center p-4">
-            <p className="mb-1 font-weight-bold">Contact Us</p>
-            <p className="mb-1">donny@cordcuthelp</p>
-            <p>(774) 454-1621</p>
+          <footer className="flex-grow-1 text-center pt-4">
+            <h2 className="mb-3 font-weight-bold">Contact Us</h2>
+            <a href="mailto:donny@cordcuthelp.com" 
+              className='text-light' style={{textDecoration:'none'}}>
+              <h4>donny@cordcuthelp.com</h4>
+            </a>
+            <a href="tel:(774) 454-1621"
+              className='text-light ' style={{textDecoration:'none'}}>
+              <h4>(774)454-1621</h4>
+            </a>
           </footer>
         </Container>
       );
