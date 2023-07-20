@@ -22,9 +22,10 @@ export const MainLayout = ({ children }: any) => {
 
       <NavScroll />
       
-      <main className="flex-grow-1 d-flex bg-light">
+      <main className="flex-grow-1 d-flex">
         { children }
       </main>
+
 
       <Footer />
       
