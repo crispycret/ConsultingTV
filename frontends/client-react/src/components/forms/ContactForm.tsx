@@ -166,6 +166,11 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         const response = await axios.post(
           `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/forms/contact/submit`, 
           payload, 
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
         )
         
         if (response.status >= 200 && response.status < 300) {
