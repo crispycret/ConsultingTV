@@ -1,5 +1,8 @@
 .DS_STORE
+**/node_modules
 */node_modules
+frontends/client-react/node_modules
+
 */scripts/flow/*/.flowconfig
 */.flowconfig
 *~
@@ -56,6 +59,9 @@ packages/react-devtools-timeline/dist
 */.tox/
 */.cache/
 */.pytest_cache/
+*/pytest_cache/
+*/__pycache__/
+**/__pycache__/
 */.idea/
 */docs/_build/
 */.vscode
