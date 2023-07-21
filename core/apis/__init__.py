@@ -1,8 +1,11 @@
+
 from flask import Blueprint
 
 
-# Create the blueprint for the api warpper application
-apis = Blueprint('apis', __name__, url_prefix='/api/v1')
+apis = Blueprint('apis', __name__, url_prefix='/apis/v1')
 
-# import routes
+
 from . import routes
+
+from .hubspot import hubspot
+apis.register_blueprint(hubspot)
