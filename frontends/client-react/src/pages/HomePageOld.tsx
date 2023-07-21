@@ -12,11 +12,8 @@ export const HomePage = () => {
     return (
         <div 
             className="home-page text-light text-center"
-            
-            // style={{backgroundImage: `url(${BACKGROUND_IMAGE}
-            style={{backgroundImage: `url(${
-                'https://raw.githubusercontent.com/crispycret/ConsultingTV/main/frontends/client-react/src/assets/images/home-background.jpg'
-            })`}}>
+            // style={{backgroundImage: `url(${BACKGROUND_IMAGE})`}}
+        >
             <div className='p-5'></div>
                 <div className='text-center'>
                     <h1>Consulting.TV</h1>
