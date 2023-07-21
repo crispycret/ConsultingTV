@@ -48,16 +48,15 @@ class Forms (Scope):
         response = self.get('forms', payload)
         return response
     
-    def get_form(self, portal_id, form_id):
+    def get_form(self, form_id):
         """ Given a form_id, return the form object from HubSpot."""
         payload = {}
-        response = self.get(f'forms/{portal_id}/{form_id}', payload)
+        response = self.get(f'forms/{form_id}', payload)
         return response
     
-    def submit_form(self, portal_id, form_id):
-        payload = {portal_id, form_id}
-        url = f'submissions/v3/integration/submit/{portal_id}/{form_id}'
-        response = self.post(url, payload, bypass_scope_url=True)
+    def submit_form(self, portal_id, form_id, payload):
+        url = f'https://api.hsforms.com/submissions/v3/integration/secure/submit/{portal_id}/{form_id}'
+        response = self.post(url, payload, url_path_is_full_url=True)
     
 
 
