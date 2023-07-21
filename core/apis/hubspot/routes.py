@@ -16,9 +16,13 @@ def test(): return "test"
 
 @hubspot.route('/forms', methods=['GET'])
 def get_forms():
-    payload = {}
-    response = hubspot_api.get('https://api.hubapi.com/forms/v2/forms/173c9c27-7e0c-488a-9a62-3618d37a70f3', payload)
+    response = hubspot_api.scopes.forms.get_forms()
+    return response
 
+
+@hubspot.route('/forms/<form_id>', methods=['GET'])
+def get_form(form_id):
+    response = hubspot_api.scopes.forms.get_form(form_id)
     return response
 
 
