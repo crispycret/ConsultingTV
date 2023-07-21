@@ -98,6 +98,13 @@ def submit_contact_form():
             "value": data['phone']
             }
         ],
+        
+          "context": {
+            "pageUri": "www.cordcuthelp.com/", # Use actual requesting url
+            "pageName": "Coming Soon"
+        },
+        
+        
         "legalConsentOptions": {
             "consent": { # Include this object when GDPR options are enabled
             "consentToProcess": True,
