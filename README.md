@@ -82,8 +82,10 @@
  
  Split the applications into test branches
  ```
- git subtree split --prefix /path/to/app1 origin backend-flask-api-test
- git subtree split --prefix /path/to/app2 origin frontend-react-client-test 
+ git subtree split -P <prefix>  -b <name-of-new-branch>
+
+ git subtree split --prefix /path/to/app1 -b backend-flask-api-test
+ git subtree split --prefix /path/to/app2 -b frontend-react-client-test 
  ```
 
  Create and Configure new production environments (Heroku) and add a remote location to the test branch for deployment. 
