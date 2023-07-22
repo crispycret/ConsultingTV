@@ -24,7 +24,7 @@ class HubspotAPI (object):
     def __init__(self, api_key=Configuration.HUBSPOT_OAUTH_TOKEN):
         self.hostname = 'https://api.hubapi.com'
         self.headers = {
-            'Authorization': f'Bearer { api_key }',
+            'Authorization': f'Bearer { api_key }', # Add authorization token to headers for all requests to the offical HubSpot API 
             'Content-Type': 'application/json' # Required for POST requests to inform server that data is JSON
         }
         

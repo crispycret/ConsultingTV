@@ -33,83 +33,16 @@ def submit_form(portal_id, form_id):
     """ Given a portal_id, form_id, and form data, submit the form to HubSpot."""
     data = request.get_json()
     
-    payload = payloads.basic_n_fields_payload(data['fields']) # Use payload template to build payload
+    # Use payload template to build payload
+    # Begining structure of payload selection that will expand to include more payload types that can be selected by the client
+    payload_type = data['payload_type'] or 'basic_n_fields_payload' # default to basic_n_fields_payload
+    if (payload_type == 'basic_n_fields_payload'):
+        payload = payloads.basic_n_fields_payload(data['fields']) 
+    else:
+        payload = payloads.basic_n_fields_payload(data['fields']) # Again default to basic_n_fields_payload for now
+
     payload = json.dumps(payload) # converts python dictionary into json string
     
+    # Submit the form using the HubspotAPI object
     response = hubspot_api.scopes.forms.submit_form(portal_id, form_id, payload)    
     return {"status": response.status_code, "response": response.text}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# @hubspot.route('/forms/contact/submit', methods=['POST'])
-# def submit_contact_form():
-#     data = request.get_json()
-    
-#     portal_id = data.pop('portal_id')    
-#     form_id = data.pop('form_id')
-    
-#     """
-#     payload = {
-#         "submittedAt": str(datetime.now().timestamp()),
-#         "fields": [
-#             {
-#             "objectTypeId": "0-1",
-#             "name": "email",
-#             "value": data['email']
-#             },
-#             {
-#             "objectTypeId": "0-1",
-#             "name": "firstname",
-#             "value": data['firstname']
-#             },
-#             {
-#             "objectTypeId": "0-1",
-#             "name": "lastname",
-#             "value": data['lastname']
-#             },
-#             {
-#             "objectTypeId": "0-1",
-#             "name": "phone",
-#             "value": data['phone']
-#             }
-#         ],
-        
-#           "context": {
-#             "pageUri": "www.cordcuthelp.com/", # Use actual requesting url
-#             "pageName": "Coming Soon"
-#         },
-        
-        
-#         "legalConsentOptions": {
-#             "consent": { # Include this object when GDPR options are enabled
-#             "consentToProcess": True,
-#             "text": "I agree to allow Example Company to store and process my personal data.",
-#             "communications": [
-#                 {
-#                 "value": True,
-#                 "subscriptionTypeId": 999,
-#                 "text": "I agree to receive marketing communications from Example Company."
-#                 }
-#             ]
-#             }
-#         }
-#     }
-#     """
-
-#     payload = payloads.basic_n_fields_payload(data['fields'])
-#     payload = json.dumps(payload) # converts python dictionary into json string
-#     response = hubspot_api.scopes.forms.submit_form(portal_id, form_id, payload)
-#     response = hubspot_api.get(f'https://api.hsforms.com/submissions/v3/integration/submit/{portal_id}/{form_id}', payload)
-#     return response.text
-    
