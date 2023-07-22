@@ -140,9 +140,10 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         event.preventDefault();
 
         setSubmitted(true)
-        // sendForm(event)
+        sendForm(event) // Toggle this to test the form submission popup window in development
 
-        onSendFormOk(null)
+        // Easy Switches for testing the form submission popup window
+        // onSendFormOk(null)
         // onSendFormError(null)
 
         // Parent Component
