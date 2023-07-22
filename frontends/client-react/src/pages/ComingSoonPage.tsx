@@ -51,7 +51,7 @@ export const ComingSoonPage = () => {
                     Thanks for stopping by, we're excited to show you what we have cooking up.
                   </small>
                 </p>
-                <p className={`lead mb-4 text-secondary ${mobile ? '' : 'col-6 mx-auto'}`}>
+                <div className={`lead mb-4 text-secondary ${mobile ? '' : 'col-6 mx-auto'}`}>
 
                   {mobile ?
                   <h6>
@@ -65,7 +65,7 @@ export const ComingSoonPage = () => {
                   </h6>
                   }
 
-                </p>
+                </div>
               </main>
 
               <footer>

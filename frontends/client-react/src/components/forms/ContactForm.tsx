@@ -4,6 +4,7 @@ import axios from "axios";
 
 import { Button, Col, Container, Form, Modal, Row } from "react-bootstrap";
 import { IoIosCheckmarkCircle, IoMdCloseCircle } from "react-icons/io";
+import { PiSpinnerBold } from 'react-icons/pi'
 
 import useMobile from "utils/common/hooks/useMobile";
 import useCountdownTimer from "utils/common/hooks/useCountdownTimer";
@@ -33,7 +34,7 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     let navigate = useNavigate();
 
     const { mobile } = useMobile()
-    const { startTimer, remainingTime, formatTime } = useCountdownTimer()
+    const { startTimer, cancelTimer, remainingTime, formatTime } = useCountdownTimer()
 
     const [firstname, setFirstname] = React.useState('')
     const [lastname, setLastname] = React.useState('')
@@ -59,6 +60,14 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
 
 
+
+
+
+
+
+
+
+
     /**
      * Handle the form input by tracking the validitiy of the form as the user types with a boolean.
      * User typing is tracked by listening to changes in the state variables for each form field.
@@ -74,6 +83,17 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     }, [firstname, lastname, email, phone])
 
       
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Handle the email input by tracking the validitiy of the email format as the user types with a boolean.
@@ -139,8 +159,11 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     const handleSubmit = (event:any) => { 
         event.preventDefault();
 
-        setSubmitted(true)
         sendForm(event) // Toggle this to test the form submission popup window in development
+
+        setTimeout(() => {
+          setSubmitted(true)
+        }, 500)
 
         // Easy Switches for testing the form submission popup window
         // onSendFormOk(null)
@@ -149,6 +172,19 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         // Parent Component
         // onSubmitCallback(event)
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     const sendForm = async (event: any) => {
@@ -174,10 +210,9 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/apis/v1/hubspot/forms/submit/${portal_id}/${form_id}`
         const response = await axios.post(url, payload, config)
         
-        if (response.status >= 200 && response.status < 300) {
-          console.log(response)
+        if (response.data.status >= 200 && response.data.status < 300) {
           onSendFormOk(response)
-        } else if (response.status >= 400) {
+        } else if (response.data.status >= 400) {
           onSendFormError(response)
         } 
 
@@ -193,7 +228,6 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     const onSendFormOk = (response: any) => {
       setSubmitOk(true)
       setSubmitError(false)
-      setMessage('Thank You! Your form was submitted successfully. Redirecting you to the home page.')
       setMessages(['Thank You!', 'Your form was submitted successfully. Redirecting you to the home page.'])
       startTimer(5, () => navigate('/'))
     }
@@ -202,16 +236,25 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     const onSendFormError = (response: any) => {
       setSubmitOk(false)
       setSubmitError(true)
-      setMessage('Whoops! There was an error submitting your form. Please try again.')
+      setMessages(['Whoops!', 'There was an error submitting your form. Please try again.'])
       startTimer(5, () => navigate('/'))
     }
 
     const onUnknownError = (error: any) => {
       setSubmitOk(false)
       setSubmitError(true)
-      setMessage('Whoah! An unknown error occurred. Please try again.')
+      setMessages(['Whoah!', 'An unknown error occurred. Please try again.'])
       startTimer(5, () => navigate('/'))
     }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -279,7 +322,7 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
             <Button variant="primary" type="submit" 
               className={`px-2 ${mobile ? 'col-8 col-offset-2' : 'col-4 col-offset-4'}`}
-              // disabled={!isValidForm}
+              disabled={!isValidForm}
               > Submit 
             </Button>
         </Form>
@@ -298,6 +341,17 @@ export const ContactForm = ({onSubmitCallback}: any) => {
           </div>
         }
 
+
+
+
+
+
+
+
+
+
+
+
         {/* Display a popup window using react-bootstrap and bootstrap */}
         <Modal className='pb-5 bg-transparent text-light' size={mobile ? 'lg' : undefined}
           centered
@@ -307,18 +361,15 @@ export const ContactForm = ({onSubmitCallback}: any) => {
           <Modal.Body className='bg-dark text-light'>
             <div className='text-center mx-auto'>
              <h1 className='display-1'>
-                {submitOk ? 
-                <IoIosCheckmarkCircle className='text-success' />
-                :
-                <IoMdCloseCircle className='text-danger' />
-                }
+                {submitOk && <IoIosCheckmarkCircle className='text-success' />}
+                {submitError && <IoMdCloseCircle className='text-danger' />}
+                {submitOk || submitError ? '' : <PiSpinnerBold className='text-primary' />} 
               </h1>
 
-                {messages ?
-                  messages.map((message, index) => {
+                {messages.map((message, index) => {
                     return (
                       index === 1 ?
-                      <em>
+                      <em key={index}>
                         <strong>
                           <p className={`col-8 mx-auto`} key={index}>
                           {message}
@@ -332,26 +383,33 @@ export const ContactForm = ({onSubmitCallback}: any) => {
                       
                     )
                   })
-                :
-                  <p className='col-8 mx-auto'>
-                    {message}
-                  </p>
                 }
 
               {/* Add a redirect message here with a timer that gets updated */}
               <div className='mx-auto my-3 redirect-message'>
-                Redirect in {formatTime(remainingTime)} seconds.
+                {submitOk || submitError ? 
+                `Redirect in ${formatTime(remainingTime)} seconds.`
+                : 
+                'Loading...'
+                }
               </div>
 
             </div>
           </Modal.Body>
-          <Modal.Footer className='bg-dark text-light border-0'>
-            <Button variant="primary" onClick={() => setSubmitted(false)}
-            className="mx-auto"
-            >
-              Close
-            </Button>
-          </Modal.Footer>
+
+          { submitOk || submitError ? <></> :
+            <Modal.Footer className='bg-dark text-light border-0'>
+              <Button variant="primary" onClick={() => {
+                setSubmitted(false)
+                cancelTimer(() => navigate('/'))
+              }}
+              className="mx-auto"
+              >
+                Close
+              </Button>
+            </Modal.Footer>
+          }
+
         </Modal>
 
       </>
