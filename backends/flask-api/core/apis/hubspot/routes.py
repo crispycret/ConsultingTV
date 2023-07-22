@@ -38,10 +38,11 @@ def submit_form(portal_id, form_id):
     """ Given a portal_id, form_id, and form data, submit the form to HubSpot."""
     try: 
         data = request.get_json()
-        
+
         # Use payload template to build payload
         # Begining structure of payload selection that will expand to include more payload types that can be selected by the client
-        payload_type = data['payload_type'] or 'basic_n_fields_payload' # default to basic_n_fields_payload
+        payload_type = data.get('payload_type') or 'basic_n_fields_payload' # default to basic_n_fields_payload
+
         if (payload_type == 'basic_n_fields_payload'):
             payload = payloads.basic_n_fields_payload(data['fields']) 
         else:
@@ -53,6 +54,7 @@ def submit_form(portal_id, form_id):
         response = hubspot_api.scopes.forms.submit_form(portal_id, form_id, payload)
         return {"status": response.status_code, "response": response.text}
     except Exception as e:
+        print(e)
         return {"status": 500, "response": str(e)}
 
 

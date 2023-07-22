@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 def basic_n_fields_payload(
-    fields=[['fieldName', 'value']], 
+    fields={'fieldName1': 'value1'}, 
     context=['www.cordcuthelp.com/', 'Coming Soon'],
     legal=['Consulting.TV', True, ]
 ):
@@ -12,9 +12,9 @@ def basic_n_fields_payload(
         
         "fields": [{ 
             "objectTypeId": "0-1",
-            "name": field[0],
-            "value": field[1]
-        } for field in fields],
+            "name": key,
+            "value": value
+        } for key, value in fields.items()],
         
           "context": {
             "pageUri": context[0], # Represents where the form was submitted from

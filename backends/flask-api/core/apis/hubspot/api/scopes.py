@@ -24,12 +24,6 @@ class Scope (object):
             f'{self.api.hosname}/{url_path}' if bypass_scope_url \
                 else f'{self.url}/{url_path}' 
 
-        print('\n\n')
-        print (self.headers)
-        print('\n\n')
-        print (headers)
-        print('\n\n')
-        
 
         headers = {**self.headers, **headers} # combine the headers for the request
 
