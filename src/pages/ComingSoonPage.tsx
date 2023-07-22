@@ -6,7 +6,7 @@ import ContactForm from '../components/forms/ContactForm';
 import useMobile from 'utils/common/hooks/useMobile';
 
 
-export const StandardComingSoonPage = () => {
+export const ComingSoonPage = () => {
 
     // Using Twitter Bootstrap and react-bootstrap Create a Coming Soon Page that has the following:
     // 1. A Header with the following:
@@ -41,6 +41,7 @@ export const StandardComingSoonPage = () => {
                     Coming Soon
                   </strong>
                 </em>  
+
               </header>
               
               <main className='my-5'>
@@ -89,4 +90,4 @@ export const StandardComingSoonPage = () => {
       );
     };
     
-    export default StandardComingSoonPage;
+    export default ComingSoonPage;
