@@ -157,21 +157,26 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
     const sendForm = async (event: any) => {
       try {
+
+        // Build the payload for the API
         const payload = {
-          firstname, lastname, email, phone,
-          portal_id: process.env.REACT_APP_HUBSPOT_PORTAL_ID,
-          form_id: process.env.REACT_APP_HUBSPOT_CONTACT_FORM_ID,
+          fields: {
+            firstname, lastname, email, phone,
+          }
         }
 
-        const response = await axios.post(
-          `${process.env.REACT_APP_BACKEND_ENDPOINT}/api/v1/forms/contact/submit`, 
-          payload, 
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          }
-        )
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+
+        // get the portal_id and form_id from the environment variables that point to the HubSpot Contact Form
+        const portal_id = process.env.REACT_APP_HUBSPOT_PORTAL_ID
+        const form_id = process.env.REACT_APP_HUBSPOT_CONTACT_FORM_ID
+
+        const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/apis/v1/hubspot/forms/submit/${portal_id}/${form_id}`
+        const response = await axios.post(url, payload, config)
         
         if (response.status >= 200 && response.status < 300) {
           console.log(response)
