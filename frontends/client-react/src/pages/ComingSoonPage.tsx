@@ -1,68 +1,92 @@
-// import HubspotForm from 'react-hubspot-form'
+
+import React from 'react';
+import axios from 'axios';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import ContactForm from '../components/forms/ContactForm';
+import useMobile from 'utils/common/hooks/useMobile';
 
 
+export const StandardComingSoonPage = () => {
 
-import EmailInputWithButton from "components/forms/EmailInputWithButton";
-import Footer from "components/layouts/Footer";
-import { Container, Row } from "react-bootstrap";
+    // Using Twitter Bootstrap and react-bootstrap Create a Coming Soon Page that has the following:
+    // 1. A Header with the following:
+    //     a. Cut The Cord and Save Now
+    // 2. A Body with the following:
+    //     a. A message that says "Coming Soon" that has large text, is centered, is bold and uses a good font.
+    //     b. A message that says "Hello, Thanks for stopping by, we're exicited to show you what we have cooking up." that is centered and uses a good font.
+    //     c. A message that says "We are currently under development but encourage you to reach out to learn more about how you can save on your TV/Internet, Cellular and Streaming services." that is centered and uses a good font.
+    //     d. A basic contact form that has the following:
+    //         i. An email input field
+    //         ii. A submit button
+    // 3. A Footer with the following:
+    //     a. A message that says "Contact Us" that is centered and uses a good font.
+    //     b. A message that says "donny@cordcuthelp" that is centered and uses a good font.
+    //     c. A message that says "(774) 454-1621" that is centered and uses a good font.
 
+    const { mobile } = useMobile();
 
-export const ComingSoonPage = () => {
-    return (
-        <div className="w-100 d-flex flex-column justify-content-center align-items-center bg-dark text-light">
-        {/* <div
-            className="flex-grow-1 flex-column bg-danger text-light" 
-            style={{
-            // backgroundImage: "url(https://images.rawpixel.com/image_1000/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjEwMTYtYy0wOF8xLWtzaDZtemEzLmpwZw.jpg)"
-        }}> */}
+  
 
-            {/* Header */}
-            <div className='w-100 my-2 '>
-                <h1>Consulting.TV</h1>
-                <h2>Cut the Cord and Save.</h2>
-            </div> 
+      return (
+        <Container fluid className="bg-dark text-light d-flex flex-column">
+          {/* <header className="text-center">
+            <h1>Cut The Cord and Save Now</h1>
+          </header> */}
+          <main className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+            <div className="text-center">
+              
+              <header className="display-3 mt-3 font-weight-bold">
+                <em>
+                  <strong>
+                    Coming Soon
+                  </strong>
+                </em>  
+              </header>
+              
+              <main className='my-5'>
+                <p className="lead mb-4 ">
+                  <em><strong className='me-1'>Hello,</strong></em>
+                  <small className='font-weight-normal'>
+                    Thanks for stopping by, we're excited to show you what we have cooking up.
+                  </small>
+                </p>
+                <p className={`lead mb-4 text-secondary ${mobile ? '' : 'col-6 mx-auto'}`}>
 
+                  {mobile ?
+                  <h6>
+                    <small>
+                      We are currently under development but encourage you to reach out to learn more about how you can save on your TV/Internet, Cellular, and Streaming services.
+                    </small>
+                  </h6>
+                  :
+                  <h6>
+                      We are currently under development but encourage you to reach out to learn more about how you can save on your TV/Internet, Cellular, and Streaming services.
+                  </h6>
+                  }
 
-            {/* Body */}
-            <div className="w-100 flex-grow-1 d-flex justify-content-center align-items-center">
-                <div className='text-light'>
-                    
-                    <h1 className="my-5">Coming Soon</h1>
+                </p>
+              </main>
 
-                    <><div className="my-5"></div><div className="my-5"></div></>
-                    <><div className="my-5"></div><div className="my-5"></div></>
+              <footer>
+                <ContactForm onSubmit={ () => {}}/>
+              </footer>
 
-                        <h3 className='text-center'>Hello,</h3>
-                        <p className='text-center'>Thanks for stopping by, we're exicited to show you what we have cooking up.</p>
-                    <div>
-                        <p className='text-center'>
-                            We are currently under development but encourage you to reach out to learn more about how you can save on your TV/Internet, Cellular and Streaming services.
-                        </p>
-                        <div className="mt-5 mx-auto col-6 col-offset-4" >
-                            <EmailInputWithButton />
-                        </div>
-
-                    </div> 
-                </div> 
             </div>
+          </main>
 
-
-            {/* Footer */}
-            <div className='w-100 bottom-0 mb-5 text-light '>
-                <a href="mailto:donny@cordcuthelp.com" 
-                    className='text-light' style={{textDecoration:'none'}}>
-                    <h4>donny@cordcuthelp.com</h4>
-                </a>
-                <a href="tel:(774) 454-1621"
-                    className='text-light ' style={{textDecoration:'none'}}>
-                    <h4>(774)454-1621</h4>
-                </a>
-            </div>
-
-        </div>
-    )
-}
-
-
-export default ComingSoonPage;
-
+          <footer className="flex-grow-1 text-center py-4">
+            {/* <h2 className="mb-3 font-weight-bold">Contact Us</h2> */}
+            <a href="mailto:donny@cordcuthelp.com" 
+              className='text-light' style={{textDecoration:'none'}}>
+              <h4>donny@cordcuthelp.com</h4>
+            </a>
+            <a href="tel:(774) 454-1621"
+              className='text-light ' style={{textDecoration:'none'}}>
+              <h4>(774)454-1621</h4>
+            </a>
+          </footer>
+        </Container>
+      );
+    };
+    
+    export default StandardComingSoonPage;
