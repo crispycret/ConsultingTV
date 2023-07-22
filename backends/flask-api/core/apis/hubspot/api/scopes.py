@@ -1,4 +1,5 @@
 import requests
+from . import payloads
 
 
     
@@ -8,7 +9,7 @@ class Scope (object):
         self.api = api
         self.name = name
         self.url_path = url_path
-        self.url = f'https://{api.hostname}/{self.url_path}' # include the base url for all requests to this scope
+        self.url = f'{api.hostname}/{self.url_path}' # include the base url for all requests to this scope
 
         # headers actually may need to be combined and overwritten with each request having priority over the scope's headers
         # and the scope's headers having priority over the api's headers
@@ -23,17 +24,25 @@ class Scope (object):
             f'{self.api.hosname}/{url_path}' if bypass_scope_url \
                 else f'{self.url}/{url_path}' 
 
-        headers = {**self.headers, **headers} # combine the headers for the request
+        print('\n\n')
+        print (self.headers)
+        print('\n\n')
+        print (headers)
+        print('\n\n')
         
-        requests.request(method, url, headers=headers, data=payload)
+
+        headers = {**self.headers, **headers} # combine the headers for the request
+
+        response = requests.request(method, url, headers=headers, data=payload)
+        return response
     
     def get(self, url_path, headers={}, payload={}, url_path_is_full_url=False, bypass_scope_url=False):
         response = self.request("GET", url_path, headers, payload, url_path_is_full_url, bypass_scope_url)
-        return response.text
+        return response
 
     def post(self, url_path, headers={}, payload={}, url_path_is_full_url=False, bypass_scope_url=False):
         response = self.request("POST", url_path, headers, payload, url_path_is_full_url, bypass_scope_url)
-        return response.text
+        return response
  
  
  
@@ -44,8 +53,7 @@ class Forms (Scope):
     
     def get_forms(self):
         """ Get all forms from HubSpot. """
-        payload = {}
-        response = self.get('forms', payload)
+        response = self.get('forms')
         return response
     
     def get_form(self, form_id):
@@ -54,9 +62,10 @@ class Forms (Scope):
         response = self.get(f'forms/{form_id}', payload)
         return response
     
-    def submit_form(self, portal_id, form_id, payload):
+    def submit_form(self, portal_id, form_id, payload=payloads.basic_n_fields_payload()):
         url = f'https://api.hsforms.com/submissions/v3/integration/secure/submit/{portal_id}/{form_id}'
-        response = self.post(url, payload, url_path_is_full_url=True)
+        response = self.post(url, payload=payload, url_path_is_full_url=True)
+        return response
     
 
 
