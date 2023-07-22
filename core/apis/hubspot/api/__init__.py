@@ -3,6 +3,7 @@ import requests
 from config import Configuration
 
 from .scopes import Scopes
+from . import payloads
 
 
 class HubspotAPI (object):
