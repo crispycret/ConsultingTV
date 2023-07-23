@@ -22,11 +22,15 @@ function App() {
           { underMaintenance ?
           <>
             <Route path="/coming-soon" element={<ComingSoonPage />} />
+            <Route path="*" element={<Navigate to="/coming-soon" />} />
+
+            {/* Used for google analytics testing */}
+            {/*             
             <Route path="/test" element={<TestPage to='/test1'/>} />
             <Route path="/test1" element={<TestPage to='/test2'/>} />
             <Route path="/test2" element={<TestPage to='/test3'/>} />
             <Route path="/test3" element={<TestPage to='/test'/>} />
-            <Route path="*" element={<Navigate to="/coming-soon" />} />
+             */}
           </>
           :
           <>

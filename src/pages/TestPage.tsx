@@ -2,7 +2,7 @@ import { Button } from "react-bootstrap"
 import { useNavigate } from "react-router-dom"
 
 
-
+// Used for Google Analytics testing
 export const TestPage = ({to='/'}) => {
 
     const navigate = useNavigate()
