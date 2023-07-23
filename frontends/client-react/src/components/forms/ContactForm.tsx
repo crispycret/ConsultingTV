@@ -215,7 +215,6 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/apis/v1/hubspot/forms/submit/${portal_id}/${form_id}`
         const response = await axios.post(url, payload, config)
 
-        if 
         
         // Remove if hosting .env works
         console.log(url)
