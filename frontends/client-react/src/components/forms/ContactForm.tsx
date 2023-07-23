@@ -192,6 +192,9 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     const sendForm = async (event: any) => {
       try {
 
+          if (process.env.REACT_APP_BACKEND_ENDPOINT === undefined) {
+            throw new Error('REACT_APP_BACKEND_ENDPOINT is undefined')
+
         // Build the payload for the API
         const payload = {
           fields: {
@@ -211,6 +214,8 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/apis/v1/hubspot/forms/submit/${portal_id}/${form_id}`
         const response = await axios.post(url, payload, config)
+
+        if 
         
         // Remove if hosting .env works
         console.log(url)
@@ -295,7 +300,7 @@ export const ContactForm = ({onSubmitCallback}: any) => {
                       <Form.Label>Email</Form.Label>
                       <Form.Control type="email" placeholder="example@email.com"
                           onInput={(e) => handleEmailInput(e)}
-                          className={`${isValidEmail ? '' : 'is-invalid'}`}
+                          className={`${isValidEmail ? 'is-valid' : 'is-invalid'}`}
                       />
                       
                       { !isValidEmail && 
@@ -312,7 +317,7 @@ export const ContactForm = ({onSubmitCallback}: any) => {
                       <Form.Label>Phone Number</Form.Label>
                       <Form.Control type="phone" placeholder="(555) 555-5555" value={phone}
                           onInput={(e) => handlePhoneNumberInput(e)}
-                          className={`${isValidPhone ? '' : 'is-invalid'}`}
+                          className={`${isValidPhone ? 'is-valid' : 'is-invalid'}`}
                       />
                       
                       { !isValidPhone && 
