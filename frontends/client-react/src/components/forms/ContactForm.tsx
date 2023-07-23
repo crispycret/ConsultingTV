@@ -218,10 +218,6 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         const response = await axios.post(url, payload, config)
 
         
-        // Remove if hosting .env works
-        console.log(url)
-        console.log(response)
-
         if (response.data.status >= 200 && response.data.status < 300) {
           onSendFormOk(response)
         } else if (response.data.status >= 400) {
