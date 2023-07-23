@@ -192,8 +192,10 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     const sendForm = async (event: any) => {
       try {
 
-          if (process.env.REACT_APP_BACKEND_ENDPOINT === undefined) {
-            throw new Error('REACT_APP_BACKEND_ENDPOINT is undefined')
+        // Check if the backend endpoint is defined in the environment variables
+        if (process.env.REACT_APP_BACKEND_ENDPOINT === undefined) {
+          throw new Error('REACT_APP_BACKEND_ENDPOINT is undefined')
+        }
 
         // Build the payload for the API
         const payload = {
