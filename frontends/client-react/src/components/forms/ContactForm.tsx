@@ -161,6 +161,8 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
         sendForm(event) // Toggle this to test the form submission popup window in development
 
+        // Display a popup window with a message and a button to redirect the user to the home page or allowing them to try again
+        // Delay popup for a few seconds for the request to take place and retieve a response to display to the user Succcess or Error
         setTimeout(() => {
           setSubmitted(true)
         }, 500)
@@ -210,6 +212,10 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/apis/v1/hubspot/forms/submit/${portal_id}/${form_id}`
         const response = await axios.post(url, payload, config)
         
+        // Remove if hosting .env works
+        console.log(url)
+        console.log(response)
+
         if (response.data.status >= 200 && response.data.status < 300) {
           onSendFormOk(response)
         } else if (response.data.status >= 400) {

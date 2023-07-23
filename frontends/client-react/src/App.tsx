@@ -8,6 +8,7 @@ import { MainLayout } from 'components/layouts/MainLayout';
 import { HomePage } from 'pages/HomePage';
 import QuotePage from 'pages/QuotePage';
 import ComingSoonPage from 'pages/ComingSoonPage';
+import { TestPage } from 'pages/TestPage';
 
 function App() {
 
@@ -21,6 +22,10 @@ function App() {
           { underMaintenance ?
           <>
             <Route path="/coming-soon" element={<ComingSoonPage />} />
+            <Route path="/test" element={<TestPage to='/test1'/>} />
+            <Route path="/test1" element={<TestPage to='/test2'/>} />
+            <Route path="/test2" element={<TestPage to='/test3'/>} />
+            <Route path="/test3" element={<TestPage to='/test'/>} />
             <Route path="*" element={<Navigate to="/coming-soon" />} />
           </>
           :
