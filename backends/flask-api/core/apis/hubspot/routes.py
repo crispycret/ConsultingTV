@@ -50,6 +50,8 @@ def submit_form(portal_id, form_id):
 
         payload = json.dumps(payload) # converts python dictionary into json string
         
+        console.log
+        
         # Submit the form using the HubspotAPI object
         response = hubspot_api.scopes.forms.submit_form(portal_id, form_id, payload)
         return {"status": response.status_code, "response": response.text}
