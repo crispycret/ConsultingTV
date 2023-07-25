@@ -4,10 +4,14 @@ import React from 'react';
 
 // import 'assets/images/consulting-tv-logo.png' 
 import { Button } from 'react-bootstrap';
+import useTitle from 'utils/common/hooks/useTitle';
 
 // import BACKGROUND_IMAGE from 'assets/images/home-background.jpg' 
 
 export const HomePage = () => {
+
+    useTitle('Home | Cord Cut Help');
+
     
     return (
         <div 

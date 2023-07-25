@@ -16,7 +16,7 @@ export const useMobile = () => {
     }
 
     const onResize = () => {
-        console.log("onResize");
+        // console.log("onResize");
         window.addEventListener('resize', update)
     }
 

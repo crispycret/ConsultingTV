@@ -9,6 +9,9 @@ import { PiSpinnerBold } from 'react-icons/pi'
 import useMobile from "utils/common/hooks/useMobile";
 import useCountdownTimer from "utils/common/hooks/useCountdownTimer";
 
+import apis from "utils/apis";
+import ga4 from "analytics/google-analytics";
+
 
 
 /**
@@ -41,6 +44,8 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     const [email, setEmail] = React.useState('')
     const [phone, setPhone] = React.useState('')
 
+    const [isValidFirstname, setIsValidFirstname] = React.useState(false)
+    const [isValidLastname, setIsValidLastname] = React.useState(false)
     const [isValidEmail, setIsValidEmail] = React.useState(false)
     const [isValidPhone, setIsValidPhone] = React.useState(false)
     const [isValidForm, setIsValidForm] = React.useState(false)
@@ -52,8 +57,8 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     const [messages, setMessages] = React.useState([''])
 
     // Simple data tracking for the form fields as the user types.
-    const handleFirstNameInput = (event:any) => setFirstname(event.currentTarget.value)
-    const handleLastNameInput = (event:any) => setLastname(event.currentTarget.value)
+    // const handleFirstNameInput = (event:any) => setFirstname(event.currentTarget.value)
+    // const handleLastNameInput = (event:any) => setLastname(event.currentTarget.value)
     // const handleEmailInput = (event:any) => setEmail(event.currentTarget.value)
     // const handlePhoneInput = (event:any) => setPhone(event.currentTarget.value)
     // const handleMessageInput = (event:any) => setMessage(event.currentTarget.value)
@@ -92,7 +97,26 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
 
 
+    /**
+     * Handle the first name input by tracking the validitiy of the first name format as the user types with a boolean.
+     * @param event 
+     */
+    const handleFirstNameInput = (event:any) => {
+      // track the first name as the user types
+      setIsValidFirstname(event.currentTarget.value.length > 0)
+      setFirstname(event.currentTarget.value)
+    }
 
+
+    /**
+     * Handle the last name input by tracking the validitiy of the last name format as the user types with a boolean.
+     * @param event 
+     */
+    const handleLastNameInput = (event:any) => {
+      // track the first name as the user types
+      setIsValidLastname(event.currentTarget.value.length > 0)
+      setLastname(event.currentTarget.value)
+    }
 
 
     /**
@@ -181,21 +205,12 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
 
 
-
-
-
-
-
-
-
-
     const sendForm = async (event: any) => {
       try {
-
-        // Check if the backend endpoint is defined in the environment variables
-        if (process.env.REACT_APP_BACKEND_ENDPOINT === undefined) {
-          throw new Error('REACT_APP_BACKEND_ENDPOINT is undefined')
-        }
+        
+        // get the form_id from the environment variables that point to the HubSpot Contact Form
+        const form_id = process.env.REACT_APP_HUBSPOT_CONTACT_FORM_ID
+        if (form_id === undefined) { throw new Error('Contact Form ID is undefined') }
 
         // Build the payload for the API
         const payload = {
@@ -204,20 +219,10 @@ export const ContactForm = ({onSubmitCallback}: any) => {
           }
         }
 
-        const config = {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
+        // Send the form data to the Backend HubSpot API
+        const response = await apis.backend.hubspot.forms.submit(form_id, payload)
 
-        // get the portal_id and form_id from the environment variables that point to the HubSpot Contact Form
-        const portal_id = process.env.REACT_APP_HUBSPOT_PORTAL_ID
-        const form_id = process.env.REACT_APP_HUBSPOT_CONTACT_FORM_ID
-
-        const url = `${process.env.REACT_APP_BACKEND_ENDPOINT}/apis/v1/hubspot/forms/submit/${portal_id}/${form_id}`
-        const response = await axios.post(url, payload, config)
-
-        
+        // Handle the response from the API and display a popup window to the user (Incldues GA4 Tracking)
         if (response.data.status >= 200 && response.data.status < 300) {
           onSendFormOk(response)
         } else if (response.data.status >= 400) {
@@ -225,15 +230,23 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         } 
 
       } catch (error) {
-        console.log(error)
         // Redirect to the home page after 5 seconds if there was an unknown error
+        // console.log(error)
         onUnknownError(error)
         navigate('/')
       }
     }
 
+
+
+
+
+
+
     // Display success message to user and redirect them to the home page
     const onSendFormOk = (response: any) => {
+      ga4.events.contactFormSubmission(true) // Track the form submission in Google Analytics
+
       setSubmitOk(true)
       setSubmitError(false)
       setMessages(['Thank You!', 'Your form was submitted successfully. Redirecting you to the home page.'])
@@ -242,6 +255,8 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
     // Display error message to user and allow them to try again by redirecting them to the form page
     const onSendFormError = (response: any) => {
+      ga4.events.contactFormSubmission(false) // Track the form submission in Google Analytics
+      // console.log(response)
       setSubmitOk(false)
       setSubmitError(true)
       setMessages(['Whoops!', 'There was an error submitting your form. Please try again.'])
@@ -265,8 +280,6 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
 
 
-
-
     return (
       <>
         <Form onSubmit={(e) => handleSubmit(e)}>
@@ -275,7 +288,9 @@ export const ContactForm = ({onSubmitCallback}: any) => {
                 <Form.Group as={mobile ? "div" : Col} controlId="firstName">
                     <Form.Label>First Name</Form.Label>
                     <Form.Control type="name" placeholder="John" value={firstname} 
-                      onInput={handleFirstNameInput}/>
+                      onInput={(e) => handleFirstNameInput(e)}
+                      className={`${isValidFirstname ? 'is-valid' : 'is-invalid'}`}
+                    />
                 </Form.Group>
 
 
@@ -285,7 +300,9 @@ export const ContactForm = ({onSubmitCallback}: any) => {
                 <Form.Group as={mobile ? "div" : Col} controlId="lastName">
                     <Form.Label>Last Name</Form.Label>
                     <Form.Control type="name" placeholder="Doe" value={lastname} 
-                      onInput={handleLastNameInput}/>
+                      onInput={(e) => handleLastNameInput(e)}
+                      className={`${isValidLastname ? 'is-valid' : 'is-invalid'}`}
+                    />
                 </Form.Group>
 
 
@@ -295,7 +312,7 @@ export const ContactForm = ({onSubmitCallback}: any) => {
                 <div className='my-2'>
                   <Form.Group controlId="email">
                       <Form.Label>Email</Form.Label>
-                      <Form.Control type="email" placeholder="example@email.com"
+                      <Form.Control type="email" placeholder="example@email.com" value={email}                    
                           onInput={(e) => handleEmailInput(e)}
                           className={`${isValidEmail ? 'is-valid' : 'is-invalid'}`}
                       />

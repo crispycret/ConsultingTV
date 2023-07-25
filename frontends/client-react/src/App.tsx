@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Navigate, Route, Routes } from 'react-router-dom';
 
@@ -9,8 +9,19 @@ import { HomePage } from 'pages/HomePage';
 import QuotePage from 'pages/QuotePage';
 import ComingSoonPage from 'pages/ComingSoonPage';
 import { TestPage } from 'pages/TestPage';
+import ga4 from 'analytics/google-analytics';
+import useTitle from 'utils/common/hooks/useTitle';
 
 function App() {
+
+  useTitle('Cord Cut Help');
+
+  // Send pageview to GA4
+  useEffect(() => {
+    ga4.trackPageview();
+  }, []);
+
+
 
   const underMaintenance = true
 
@@ -23,14 +34,6 @@ function App() {
           <>
             <Route path="/coming-soon" element={<ComingSoonPage />} />
             <Route path="*" element={<Navigate to="/coming-soon" />} />
-
-            {/* Used for google analytics testing */}
-            {/*             
-            <Route path="/test" element={<TestPage to='/test1'/>} />
-            <Route path="/test1" element={<TestPage to='/test2'/>} />
-            <Route path="/test2" element={<TestPage to='/test3'/>} />
-            <Route path="/test3" element={<TestPage to='/test'/>} />
-             */}
           </>
           :
           <>

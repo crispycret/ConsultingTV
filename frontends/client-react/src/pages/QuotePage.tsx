@@ -2,8 +2,12 @@ import PhysicalAddress from "components/forms/PhysicalAddress";
 import QuestionaireForm from "components/forms/QuestionaireForm";
 import { useState } from "react";
 import { Button, Col, Row } from "react-bootstrap";
+import useTitle from "utils/common/hooks/useTitle";
 
 export const QuotePage = () => {
+
+    useTitle('Quote | Cord Cut Help');
+
 
     const maxPage = 3
     const [page, setPage] = useState(1)
