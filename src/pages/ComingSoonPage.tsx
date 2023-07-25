@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import ContactForm from '../components/forms/ContactForm';
 import useMobile from 'utils/common/hooks/useMobile';
+import useTitle from 'utils/common/hooks/useTitle';
+import ga4 from 'analytics/google-analytics';
 
 
 export const ComingSoonPage = () => {
@@ -23,9 +25,21 @@ export const ComingSoonPage = () => {
     //     b. A message that says "donny@cordcuthelp" that is centered and uses a good font.
     //     c. A message that says "(774) 454-1621" that is centered and uses a good font.
 
+    
+    useTitle('Coming Soon | Cord Cut Help');
+    
     const { mobile } = useMobile();
 
-  
+
+
+    const handleContactClick = (e: any) => {
+      try {
+        const [protocol, value] = e.currentTarget.href.split(':')
+        ga4.events.contactClick(protocol, value)    
+      } catch (error) {
+        // Do nothing
+      }
+    }
 
       return (
         <Container fluid className="bg-dark text-light d-flex flex-column">
@@ -75,16 +89,17 @@ export const ComingSoonPage = () => {
             </div>
           </main>
 
-          <footer className="flex-grow-1 text-center py-4">
+          <footer className={`flex-grow-1 text-center ${mobile ? 'py-5' : 'py-3'}`}>
             {/* <h2 className="mb-3 font-weight-bold">Contact Us</h2> */}
+            <a href="tel:(774) 454-1621" onClick={(e) => handleContactClick(e)}
+              className='text-light ' style={{textDecoration:'none'}}>
+              <h4>(774)454-1621</h4>
+            </a>
             <a href="mailto:donny@cordcuthelp.com" 
               className='text-light' style={{textDecoration:'none'}}>
               <h4>donny@cordcuthelp.com</h4>
             </a>
-            <a href="tel:(774) 454-1621"
-              className='text-light ' style={{textDecoration:'none'}}>
-              <h4>(774)454-1621</h4>
-            </a>
+
           </footer>
         </Container>
       );

@@ -9,7 +9,7 @@ import 'assets/styles/mainlayout.css'
 // import useMobile from 'utils/common/hooks/useMobile';
 
 import NavScroll from './NavScroll';
-import Footer  from 'components/layouts/Footer';
+import Footer  from './Footer';
 
 
 export const MainLayout = ({ children }: any) => {
@@ -17,7 +17,6 @@ export const MainLayout = ({ children }: any) => {
   // const { mobile } = useMobile()
 
   return (
-
     <div className="d-flex flex-column min-vh-100">
 
       <NavScroll />
@@ -26,16 +25,9 @@ export const MainLayout = ({ children }: any) => {
         { children }
       </main>
 
-
       <Footer />
       
     </div>
-
-    // <div className="">
-    //   <NavScroll />
-    //   <main className=''>{children}</main>
-    //   <Footer />
-    // </div>
   );
 };
 
