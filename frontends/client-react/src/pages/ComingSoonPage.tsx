@@ -5,7 +5,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import ContactForm from '../components/forms/ContactForm';
 import useMobile from 'utils/common/hooks/useMobile';
 import useTitle from 'utils/common/hooks/useTitle';
-import ga4 from 'analytics/google-analytics';
+import ga4 from 'analytics/ga4';
 
 
 export const ComingSoonPage = () => {
@@ -35,7 +35,9 @@ export const ComingSoonPage = () => {
     const handleContactClick = (e: any) => {
       try {
         const [protocol, value] = e.currentTarget.href.split(':')
-        ga4.events.contactClick(protocol, value)    
+
+        ga4.events.click.contact(protocol, value)
+
       } catch (error) {
         // Do nothing
       }
