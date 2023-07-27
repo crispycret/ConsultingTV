@@ -4,8 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './assets/styles/index.css';
-
-import ga4 from './analytics/google-analytics';
+import ga4 from 'analytics/ga4';
 // import reportWebVitals from './analytics/reportWebVitals';
 
 import App from './App';

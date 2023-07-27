@@ -10,7 +10,8 @@ import useMobile from "utils/common/hooks/useMobile";
 import useCountdownTimer from "utils/common/hooks/useCountdownTimer";
 
 import apis from "utils/apis";
-import ga4 from "analytics/google-analytics";
+// import ga4 from "analytics/google-analytics";
+import ga4 from 'analytics/ga4'
 
 
 
@@ -33,6 +34,8 @@ import ga4 from "analytics/google-analytics";
  * 
 */
 export const ContactForm = ({onSubmitCallback}: any) => {
+
+  const formId = process.env.REACT_APP_HUBSPOT_CONTACT_FORM_ID || ''
 
     let navigate = useNavigate();
 
@@ -222,6 +225,8 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         // Send the form data to the Backend HubSpot API
         const response = await apis.backend.hubspot.forms.submit(form_id, payload)
 
+        console.log(response)
+
         // Handle the response from the API and display a popup window to the user (Incldues GA4 Tracking)
         if (response.data.status >= 200 && response.data.status < 300) {
           onSendFormOk(response)
@@ -245,7 +250,9 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
     // Display success message to user and redirect them to the home page
     const onSendFormOk = (response: any) => {
-      ga4.events.contactFormSubmission(true) // Track the form submission in Google Analytics
+
+      // Track the form submission in Google Analytics
+      ga4.events.submit.forms.hubspot.contact("Contact Us", formId, true)
 
       setSubmitOk(true)
       setSubmitError(false)
@@ -255,8 +262,9 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
     // Display error message to user and allow them to try again by redirecting them to the form page
     const onSendFormError = (response: any) => {
-      ga4.events.contactFormSubmission(false) // Track the form submission in Google Analytics
-      // console.log(response)
+      // Track the form submission in Google Analytics
+      ga4.events.submit.forms.hubspot.contact("Contact Us", formId, false)
+
       setSubmitOk(false)
       setSubmitError(true)
       setMessages(['Whoops!', 'There was an error submitting your form. Please try again.'])

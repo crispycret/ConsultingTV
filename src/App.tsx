@@ -4,12 +4,14 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import './assets/styles/App.css';
 
+import ga4 from 'analytics/ga4';
+
 import { MainLayout } from 'components/layouts/MainLayout';
 import { HomePage } from 'pages/HomePage';
 import QuotePage from 'pages/QuotePage';
 import ComingSoonPage from 'pages/ComingSoonPage';
-import { TestPage } from 'pages/TestPage';
-import ga4 from 'analytics/google-analytics';
+
+
 import useTitle from 'utils/common/hooks/useTitle';
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
 
   // Send pageview to GA4
   useEffect(() => {
-    ga4.trackPageview();
+    ga4.track.page();
   }, []);
 
 
