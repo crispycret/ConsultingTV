@@ -225,8 +225,6 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         // Send the form data to the Backend HubSpot API
         const response = await apis.backend.hubspot.forms.submit(form_id, payload)
 
-        console.log(response)
-
         // Handle the response from the API and display a popup window to the user (Incldues GA4 Tracking)
         if (response.data.status >= 200 && response.data.status < 300) {
           onSendFormOk(response)
@@ -236,9 +234,9 @@ export const ContactForm = ({onSubmitCallback}: any) => {
 
       } catch (error) {
         // Redirect to the home page after 5 seconds if there was an unknown error
-        // console.log(error)
+        console.log(error)
         onUnknownError(error)
-        navigate('/')
+        // navigate('/')
       }
     }
 
@@ -272,6 +270,7 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     }
 
     const onUnknownError = (error: any) => {
+      // console.log(error)
       setSubmitOk(false)
       setSubmitError(true)
       setMessages(['Whoah!', 'An unknown error occurred. Please try again.'])

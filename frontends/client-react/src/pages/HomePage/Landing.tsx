@@ -12,10 +12,6 @@ import useMobile from "utils/common/hooks/useMobile";
 export const Landing = () => {
     const { mobile } = useMobile()
 
-    useEffect(() => {
-        console.log(mobile)
-    }, [])
-
     return (
         <div className='min-vh-100 w-100' 
             style={{
