@@ -6,6 +6,7 @@ import ContactForm from '../components/forms/ContactForm';
 import useMobile from 'utils/common/hooks/useMobile';
 import useTitle from 'utils/common/hooks/useTitle';
 import ga4 from 'analytics/ga4';
+import { Contact } from 'components/Content/Contact';
 
 
 export const ComingSoonPage = () => {
@@ -30,21 +31,10 @@ export const ComingSoonPage = () => {
     
     const { mobile } = useMobile();
 
-
-
-    const handleContactClick = (e: any) => {
-      try {
-        const [protocol, value] = e.currentTarget.href.split(':')
-
-        ga4.events.click.contact(protocol, value)
-
-      } catch (error) {
-        // Do nothing
-      }
-    }
+  
 
       return (
-        <Container fluid className="bg-dark text-light d-flex flex-column">
+        <Container fluid className="bg-dark text-light d-flex flex-column pt-5">
           {/* <header className="text-center">
             <h1>Cut The Cord and Save Now</h1>
           </header> */}
@@ -93,15 +83,7 @@ export const ComingSoonPage = () => {
 
           <footer className={`flex-grow-1 text-center ${mobile ? 'py-5' : 'py-3'}`}>
             {/* <h2 className="mb-3 font-weight-bold">Contact Us</h2> */}
-            <a href="tel:(774) 454-1621" onClick={(e) => handleContactClick(e)}
-              className='text-light ' style={{textDecoration:'none'}}>
-              <h4>(774)454-1621</h4>
-            </a>
-            <a href="mailto:donny@cordcuthelp.com" 
-              className='text-light' style={{textDecoration:'none'}}>
-              <h4>donny@cordcuthelp.com</h4>
-            </a>
-
+                  <Contact />
           </footer>
         </Container>
       );

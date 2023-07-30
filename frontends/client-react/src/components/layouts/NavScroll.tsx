@@ -1,15 +1,16 @@
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+
+import { Container, Nav, Navbar } from 'react-bootstrap';
+import usePosition from 'utils/common/hooks/usePosition';
 
 function NavScroll() {
+
+  const { isTop, isBottom } = usePosition();
+  
   return (
-    <Navbar expand="lg" className="bg-body-tertiary bg-transparent">
+    // <Navbar expand="lg" className="bg-body-tertiary bg-transparent position-fixed w-100">
+    <Navbar expand="lg" className={`${isTop ? 'bg-transparent' : 'bg-dark'} position-fixed w-100 navbar-dark`}>
       <Container fluid>
-        <Navbar.Brand href="/">Consulting.TV</Navbar.Brand>
+        <Navbar.Brand href="/">CordCutHelp</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
