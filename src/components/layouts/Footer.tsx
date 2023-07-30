@@ -1,7 +1,7 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 // import { BsLinkedin, BsGithub, BsFacebook, BsInstagram } from "react-icons/bs";
-import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
+import { BsFacebook, BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
 import { Link, Navigate } from "react-router-dom";
 import useMobile from "utils/common/hooks/useMobile";
 
@@ -10,14 +10,15 @@ export const Footer = () => {
   const mobile = useMobile()
 
   return (
-    <Container fluid className="bg-dark text-light text-center bottom-0">
+    <Container fluid className="bg-dark text-light text-center bottom-0 py-3">
       <Row>
 
       <Col md={mobile ? 4 : 12} className={`mx-auto my-auto ${mobile ? '' : 'text-end'}`}>
             <p className='h5'>
-                <a href="https://www.instagram.com" className="text-light mx-1" ><BsInstagram /></a>
-                <a href="https://www.twitter.com" className="text-light mx-5" ><BsTwitter /></a>
-                <a href="https://www.facebook.com" className="text-light mx-1" ><BsFacebook /></a>
+            <a href="https://www.facebook.com/cordcuthelp/" className="text-light mx-1" ><BsFacebook /></a>
+            <a href="https://www.linkedin.com/company/cord-cut-help/" className="text-light mx-5" ><BsLinkedin /></a>
+            {/* <a href="https://www.instagram.com" className="text-light mx-1" ><BsInstagram /></a> */}
+            <a href="https://www.twitter.com" className="text-light mx-1" ><BsTwitter /></a>
             </p>
         </Col>
         

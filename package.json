@@ -22,9 +22,11 @@
     "react-router-dom": "^6.14.1",
     "serve": "^14.2.0",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webfontloader": "^1.6.28"
   },
   "devDependencies": {
+    "@types/webfontloader": "^1.6.35",
     "react-scripts": "5.0.1"
   },
   "scripts": {

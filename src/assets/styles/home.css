@@ -1,0 +1,38 @@
+/* Define the custom properties for white and yellow */
+:root {
+  --white-color: #ffffff;
+  --yellow-color: #ffd700;
+}
+
+.wavy-background-container {
+  position: relative;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--white-color), var(--yellow-color));
+  overflow: hidden;
+  color: #333; /* Set your text color */
+}
+
+.wavy-background-container::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px; /* Adjust the height of the waves */
+  background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="var(--yellow-color)" fill-opacity="1" d="M0,256L120,261.3C240,267,480,277,720,277.3C960,277,1200,267,1320,261.3L1440,256L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z"></path></svg>');
+  z-index: -1;
+}
+
+/* Adjust the animation to create a wavy effect */
+@keyframes wave-animation {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: 4000px; /* Adjust the value to control the wave length */
+  }
+}
+
+.wavy-background-container::after {
+  animation: wave-animation 5s linear infinite; /* Adjust the duration for a slower or faster wave */
+}
