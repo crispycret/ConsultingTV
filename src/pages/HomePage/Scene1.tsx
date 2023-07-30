@@ -10,13 +10,18 @@ import { lwavesBottom1 } from "components/Content/design";
 
 
 export const Scene1 = () => {
-    const mobile = useMobile()
+    const { mobile } = useMobile()
     return (
-        <div className='vh-100 w-100' style={{backgroundImage:`url(${lwavesBottom1})`, backgroundSize: 'cover'}}>
-            <Spacing size={5} />
+        <div className='min-vh-100 w-100' style={{
+            backgroundImage:`url(${lwavesBottom1})`, backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+            }}>
+
+            {mobile && <Spacing size={5} /> }
 
             {!mobile && <Spacing size={5} /> }
-            {!mobile && <Spacing size={5} /> }
+            {/* {!mobile && <Spacing size={5} /> } */}
             
             <Row className='my-auto'>
                 <HowItWorks />
