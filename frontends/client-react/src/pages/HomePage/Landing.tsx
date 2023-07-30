@@ -1,5 +1,6 @@
 import { cartoon1, lwavesTop2 } from "components/Content/design";
 import Spacing from "components/layouts/Spacing";
+import { useEffect } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 
 import useMobile from "utils/common/hooks/useMobile";
@@ -9,16 +10,25 @@ import useMobile from "utils/common/hooks/useMobile";
 
 
 export const Landing = () => {
-    const mobile = useMobile()
+    const { mobile } = useMobile()
+
+    useEffect(() => {
+        console.log(mobile)
+    }, [])
 
     return (
-        <div className='vh-100 w-100' style={{backgroundImage:`url(${lwavesTop2})`, backgroundSize: 'cover'}}>
-            <Spacing size={5} />
+        <div className='min-vh-100 w-100' 
+            style={{
+                backgroundImage:`url(${lwavesTop2})`, backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat'
+        }}>
+            
             <Spacing size={5} />
 
             {/* Extra vertical spacing when not on mobile */}
-            {!mobile &&  <Spacing size={5} /> }
-            {!mobile &&  <Spacing size={5} /> }
+            {!mobile && <Spacing size={5} /> }
+            {!mobile && <Spacing size={5} /> }
 
             {/* Content */}
             <Row>

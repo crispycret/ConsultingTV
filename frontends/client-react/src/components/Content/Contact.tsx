@@ -1,6 +1,10 @@
 import ga4 from "analytics/ga4"
+import Spacing from "components/layouts/Spacing"
+import useMobile from "utils/common/hooks/useMobile"
 
 export const Contact = () => {
+
+  const { mobile } = useMobile()
 
     const handleContactClick = (e: any) => {
         try {
@@ -13,6 +17,8 @@ export const Contact = () => {
 
     return (
         <>
+            {mobile && <Spacing size={4} />}
+
             <a href="tel:(774) 454-1621" onClick={(e) => handleContactClick(e)}
               className='text-light ' style={{textDecoration:'none'}}>
               <h4>(774)454-1621</h4>
