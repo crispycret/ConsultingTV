@@ -1,5 +1,4 @@
-# Consulting TV
-
+# [Consulting TV](https://www.cordcuthelp.com)
  Consulting TV aims to provide a solution to customers who are not tech savvy but want to jump off the sinking ship that is cable.
 
 
