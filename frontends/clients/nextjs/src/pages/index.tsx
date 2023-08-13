@@ -37,7 +37,7 @@ export const getServerSideProps = () => {
 
 export const Home = (props: any) => {
 
-    useTitle('Cord Cut Help')
+    useTitle('Cord Cut Help | Home Page | Help Save Money on TV and Internet Bills')
 
     const { mobile } = useMobile()
 
