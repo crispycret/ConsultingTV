@@ -1,0 +1,6 @@
+# Ignore all files except the necessary ones for the published package
+*
+!dist/
+!package.json
+!README.md
+# Add any other files that should be included in the published package

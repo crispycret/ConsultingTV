@@ -1,16 +1,14 @@
+import { useMobile } from "eternite/hooks";
 import ContactForm from "components/forms/ContactForm";
-
-import { lwavesTop2 } from "components/Content/design";
 import Spacing from "components/layouts/Spacing";
-import { Contact } from "components/Content/Contact";
-import useMobile from "utils/common/hooks/useMobile";
+import { Contact } from "components/content/Contact";
+import { lwavesTop2 } from "components/content/design";
 
 export const Scene2 = () => {
     const { mobile } = useMobile()
     return (
         <div className='min-vh-100 w-100' style={{
-            backgroundImage:`url(${lwavesTop2})`, 
-            backgroundSize: 'cover',
+            backgroundImage:`url(${lwavesTop2})`, backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
             }}>

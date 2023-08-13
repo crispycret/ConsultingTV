@@ -1,0 +1,50 @@
+
+[
+    {
+        "name": "description",
+        "content":"Save money on internet bills! Get the best deals on internet service in your area. Simplify TV and internet services with CordCutHelp."
+    }, {
+        "property": "og:title",
+        "content": "CordCutHelp"
+    }, {
+        "property": "og:description",
+        "content": "Save money on internet bills! Get the best deals on internet service in your area. Simplify TV and internet services with CordCutHelp." 
+    }, {
+        "property": "og:type",
+        "content":"website" 
+    }, {
+        "property": "og:url",
+        "content": "https://www.cordcuthelp.com"
+    }, {
+        "property": "og:image",
+        "content": "https://www.cordcuthelp.com/your-image.jpg"
+    },
+    
+
+
+    {
+        "name": "twitter:card",
+        "content": "summary_large_image"
+    }, {
+        "name": "twitter:title",
+        "content": "CordCutHelp"
+    }, {
+        "name": "twitter:description",
+        "content": "Save money on internet bills! Get the best deals on internet service in your area. Simplify TV and internet services with CordCutHelp."
+    }, {
+        "name": "twitter:image",
+        "content": "https://www.cordcuthelp.com/your-image.jpg"
+    },
+
+
+
+    {
+        "name": "keywords",
+        "content": "save, tv, internet, provider, service, streaming"
+    }, {
+        "name": "news_keywords:title",
+        "content": "save, tv, internet, provider, service, streaming"
+    }
+
+]
+
