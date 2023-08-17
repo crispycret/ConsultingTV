@@ -7,37 +7,54 @@ import Footer from '@/components/layout/Footer';
 import { Landing, Scene1, Scene2 } from "@/components/scenes/home";
 
 
-// import page content from json file
-const content = require('@/assets/data/home-page.json')
-
 
 // import SEO components
-import jsonLd from '@/utils/json-ld';
-import { SEOLoader } from '@/components/utils/seo';
-import metaTags from '@/utils/metaTags';
+import SEO from '@/utils/SEO';
+import { SEOLoader, reducePropsForSEOLoader } from '@/components/utils/SEOLoader';
+import { baseServerSideProps, defaultServerSideProps } from '@/utils/serverside/props';
 
 
 
-export const getServerSideProps = () => {
-    console.log("\nHome -> getServersideProps():")
-    // Load Home Page Json-LD and meta tags
-    let jsonLdData = jsonLd.load('home/json-ld.json')
-    // let jsonLdData = jsonLd.load('home/json-ld.min.json')
+/**
+ * Fetch API data, add SEO tags, and pass data to the page component.
+ * @returns 
+ */
+export const getServerSideProps = (ctx?: any) => baseServerSideProps('home', ctx);
 
-    let metaTagData = metaTags.load('home/meta-tags.json')
-    return {
-        props: {
-            jsonLdData,
-            metaTagData,
-        },
-    }
+// export const getServerSideProps = () => {
+//     console.log("\nHome -> getServersideProps():")
+//     console.log("process.env.TEST_ENV_VAR: " + process.env.TEST_ENV_VAR)
+//     // import page content from json file
+//     const content = require('@/assets/data/content/home-page.json')
+//     return {
+//         props: {
+//             content,
+//             seo: {
+//                 metaTags: SEO.load('home/meta-tags.json'),
+//                 jsonLd: SEO.load('home/json-ld.json')
+//             },
+//         }
+//     }
+// }
 
-}
 
 
 export const Home = (props: any) => {
 
-    useTitle('Cord Cut Help | Home Page | Help Save Money on TV and Internet Bills')
+
+    console.log("\nHome -> canonical: " +  props.seo.canonical)
+    // console.log("\nHome -> context: " +  props.ctx)
+
+
+    console.log("\nHome -> process.env:")
+    console.log(process.env.NEXT_PUBLIC_GA4_TRACKING_ID)
+    console.log(process.env.NEXT_PUBLIC_BACKEND_ENDPOINT)
+    console.log(process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID)
+    console.log(process.env.NEXT_PUBLIC_HUBSPOT_CONTACT_FORM_ID)
+
+
+    useTitle(props.content.title)
+    // useTitle('Cord Cut Help | Home Page | Help Save Money on TV and Internet Bills')
 
     const { mobile } = useMobile()
 
@@ -50,10 +67,10 @@ export const Home = (props: any) => {
 
     if (typeof window === "undefined") {
         console.log("\nHome -> Server-Side:")
-        console.log(props)
+        // console.log(props)
     } else {
         console.log("\nHome -> Client-Side:")
-        console.log(props)
+        // console.log(props)
     }
 
 
@@ -63,7 +80,16 @@ export const Home = (props: any) => {
         // reactProject/src/App.tsx
         <div className='App'>
 
-            <SEOLoader jsonLd={props.jsonLdData} metaTags={props.metaTagData} canonical={true} />
+            {/* <SEOLoader 
+                title={props.content.title}
+                jsonLd={props.seo.jsonLd} 
+                metaTags={props.seo.metaTags} 
+                canonical={true} 
+            /> */}
+
+            <SEOLoader { ...reducePropsForSEOLoader(props)} />
+
+
 
             {/* Main Layout */}
             {/* reactProject/src/components/layouts/MainLayout.tsx */}
@@ -77,7 +103,7 @@ export const Home = (props: any) => {
                     <div className={` w-100 min-vh-100 bg-secondary text-white`}>
 
                         {/* Loop through the content entities and draw a scene using that entity data if there is a scene to draw. */}
-                        {content.entities.map((entity: any, index: number) => {
+                        {props.content.entities.map((entity: any, index: number) => {
                             return scenes.length > index ? (
                                 <div key={index} className="">
                                     {/* Render the component and pass the entity data */}
@@ -93,7 +119,6 @@ export const Home = (props: any) => {
         </div>
     );
 }
-
 
 
 

@@ -4,7 +4,7 @@ import { BsFacebook, BsInstagram, BsLinkedin, BsTwitter } from "react-icons/bs";
 import useMobile from "eternite/hooks/useMobile";
 
 import { Col, Container, Row } from "@/lib/bootstrap";
-import { SEOLoader } from "../utils/seo";
+import { SEOLoader } from "../utils/SEOLoader";
 
 // import { Link, Navigate } from "react-router-dom";
 
@@ -36,10 +36,10 @@ export const Footer = () => {
 
       <Col md={mobile ? 4 : 12} className={`mx-auto my-auto ${mobile ? '' : 'text-end'}`}>
             <p className='h5'>
-            <a href="https://www.facebook.com/cordcuthelp/" className="text-light mx-1" ><BsFacebook /></a>
-            <a href="https://www.linkedin.com/company/cord-cut-help/" className="text-light mx-5" ><BsLinkedin /></a>
+            <a href="https://www.facebook.com/cordcuthelp/" className="facebook-icon text-light mx-1" > <BsFacebook /> </a>
+            <a href="https://www.linkedin.com/company/cord-cut-help/" className="linkedin-icon text-light mx-5" ><BsLinkedin /></a>
             {/* <a href="https://www.instagram.com" className="text-light mx-1" ><BsInstagram /></a> */}
-            <a href="https://www.twitter.com" className="text-light mx-1" ><BsTwitter /></a>
+            <a href="https://www.twitter.com" className="twitter-icontext-light mx-1" ><BsTwitter /></a>
             </p>
         </Col>
         

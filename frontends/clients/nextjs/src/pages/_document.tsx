@@ -15,9 +15,8 @@ import Document, { Head, Html, Main, NextScript } from 'next/document';
     The meta description for PageComponent.tsx will be "Page-specific description" because it overrides the global meta description.
  */
 
-import { SEOLoader } from '@/components/utils/seo';
-import jsonLd from '@/utils/json-ld';
-import metaTags from '@/utils/metaTags';
+import SEO from '@/utils/SEO';
+import SEOLoader from '@/components/utils/SEOLoader';
 import { LinkGoogleFonts } from '@/utils/LinkGoogleFonts';
 
 class MyDocument extends Document {
@@ -41,7 +40,7 @@ class MyDocument extends Document {
         {/* Add document head elements */}
         <Head>
           <LinkGoogleFonts />
-          <SEOLoader jsonLd={jsonLd.global} metaTags={metaTags.global}/>
+          <SEOLoader jsonLd={SEO.jsonLd.global} metaTags={SEO.metaTags.global} />
         </Head>
       
         {/* Add document body elements */}

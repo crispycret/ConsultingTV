@@ -1,0 +1,67 @@
+{
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "CordCutHelp",
+    "description": "A company that helps users simplify TV and internet services. Save on internet bills and enjoy seamless streaming.",
+    "keywords": "save, tv, internet, provider, service, streaming",
+    "url": "https://www.cordcuthelp.com",
+    "sameAs": [
+        "https://www.facebook.com/cordcuthelp",
+        "https://twitter.com/cordcuthelp",
+        "https://www.instagram.com/cordcuthelp/",
+        "https://www.linkedin.com/company/cordcuthelp/"
+    ],
+  
+  
+    "address": {
+      "@type": "PostalAddress",
+        "streetAddress": "1234 Main Street",
+        "addressLocality": "Boston",
+        "addressRegion": "MA",
+        "postalCode": "02108",
+        "addressCountry": "United States"
+    },
+    "potentialActionArea": {
+      "@type": "GeoShape",
+      "box": "42.327,-71.197 42.397,-70.946"
+    },
+    "potentialActionDistance": {
+        "@type": "Distance",
+        "description": "Service area within 60 miles",
+        "value": 60,
+        "unitCode": "SMI"
+    },
+  
+    
+  
+    "contactPoint": [
+        {
+            "@type": "ContactPoint",
+            "telephone": "+1-774-454-1621",
+            "email": "donny@cordcuthelp.com", 
+            "contactType": "customer service",
+            "areaServed": "US",
+            "availableLanguage": ["English", "Spanish"],
+            "hoursAvailable": "Mo-Su 08:00-20:00",
+            "contactOption": [
+                {
+                    "@type": "ContactOption",
+                    "contactType": "email",
+                    "url": "mailto:donny@cordcuthelp.com"
+                }, {
+                    "@type": "ContactOption",
+                    "contactType": "phone",
+                    "url": "tel:+1-774-454-1621"
+                }
+            ]
+        }
+    ],
+  
+  
+      "author": {
+        "@type": "Person",
+        "name": "Brandon Nadeau"
+      }
+  }
+  
+  

@@ -8,8 +8,8 @@ import { PiSpinnerBold } from 'react-icons/pi'
 import { useMobile, useCountdownTimer} from "eternite/hooks"
 import { Spacer } from "@/components/layout";
 
-// import apis from "utils/apis";
-// import ga4 from 'analytics/ga4'
+import apis from "@/apis";
+import ga4 from '@/apis/analytics/ga4'
 
 
 
@@ -33,7 +33,7 @@ import { Spacer } from "@/components/layout";
 */
 export const ContactForm = ({onSubmitCallback}: any) => {
 
-  const formId = process.env.REACT_APP_HUBSPOT_CONTACT_FORM_ID || ''
+    const formId = process.env.NEXT_PUBLIC_HUBSPOT_CONTACT_FORM_ID || ''
 
     // let navigate = useNavigate();
 
@@ -168,12 +168,12 @@ export const ContactForm = ({onSubmitCallback}: any) => {
      * @param event 
      */
     // Process the form data before submitting it to the API (Handled by each form field's onInput handler)
-      // Validate the form data before submitting it to the API (Handled by each form field's onInput handler)
+    // Validate the form data before submitting it to the API (Handled by each form field's onInput handler)
 
     // If the form data is invalid, notify the user and allow them to correct the form data 
-      // Handled in the render function by displaying an error message if the form field is not valid
-        // (Red border around the form field and a message below the form field)
-      // While the form data is invalid, do not allow the user to submit the form
+    // Handled in the render function by displaying an error message if the form field is not valid
+    // (Red border around the form field and a message below the form field)
+    // While the form data is invalid, do not allow the user to submit the form
     const handleSubmit = (event:any) => { 
         event.preventDefault();
 
@@ -203,7 +203,7 @@ export const ContactForm = ({onSubmitCallback}: any) => {
       try {
         
         // get the form_id from the environment variables that point to the HubSpot Contact Form
-        const form_id = process.env.REACT_APP_HUBSPOT_CONTACT_FORM_ID
+        const form_id = process.env.NEXT_PUBLIC_HUBSPOT_CONTACT_FORM_ID
         if (form_id === undefined) { throw new Error('Contact Form ID is undefined') }
 
         // Build the payload for the API
@@ -214,14 +214,14 @@ export const ContactForm = ({onSubmitCallback}: any) => {
         }
 
         // // Send the form data to the Backend HubSpot API
-        // const response = await apis.backend.hubspot.forms.submit(form_id, payload)
+        const response = await apis.backend.hubspot.forms.submit(form_id, payload)
 
-        // // Handle the response from the API and display a popup window to the user (Incldues GA4 Tracking)
-        // if (response.data.status >= 200 && response.data.status < 300) {
-        //   onSendFormOk(response)
-        // } else if (response.data.status >= 400) {
-        //   onSendFormError(response)
-        // } 
+        // Handle the response from the API and display a popup window to the user (Incldues GA4 Tracking)
+        if (response.data.status >= 200 && response.data.status < 300) {
+          onSendFormOk(response)
+        } else if (response.data.status >= 400) {
+          onSendFormError(response)
+        } 
 
       } catch (error) {
         // Redirect to the home page after 5 seconds if there was an unknown error
@@ -241,19 +241,19 @@ export const ContactForm = ({onSubmitCallback}: any) => {
     const onSendFormOk = (response: any) => {
 
       // Track the form submission in Google Analytics
-    //   ga4.events.submit.forms.hubspot.contact("Contact Us", formId, true)
+      ga4.events.submit.forms.hubspot.contact("Contact Us", formId, true)
 
       setSubmitOk(true)
       setSubmitError(false)
       setMessages(['Thank You!', 'Your form was submitted successfully. Redirecting you to the home page.'])
       // startTimer(5, () => navigate('/'))
-      startTimer(5, () =>window.location.href = '/')
+      startTimer(5, () => window.location.href = '/')
     }
 
     // Display error message to user and allow them to try again by redirecting them to the form page
     const onSendFormError = (response: any) => {
       // Track the form submission in Google Analytics
-    //   ga4.events.submit.forms.hubspot.contact("Contact Us", formId, false)
+      ga4.events.submit.forms.hubspot.contact("Contact Us", formId, false)
 
       setSubmitOk(false)
       setSubmitError(true)
