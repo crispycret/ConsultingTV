@@ -29,10 +29,14 @@ class Configuration (object):
     
     HUBSPOT_OAUTH_TOKEN = os.environ.get('HUBSPOT_OAUTH_TOKEN')
 
+    FIREBASE_ENDPOINT = os.environ.get('FIREBASE_ENDPOINT')
+
     TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
     TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
     TWILIO_VERIFY_SERVICE = os.environ.get('TWILIO_VERIFY_SERVICE')
     SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY') 
+
+
 
     
     

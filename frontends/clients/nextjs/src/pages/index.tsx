@@ -10,8 +10,8 @@ import { Landing, Scene1, Scene2 } from "@/components/scenes/home";
 
 // import SEO components
 import SEO from '@/utils/SEO';
-import { SEOLoader, reducePropsForSEOLoader } from '@/components/utils/SEOLoader';
-import { baseServerSideProps, defaultServerSideProps } from '@/utils/serverside/props';
+// import { SEOLoader, reducePropsForSEOLoader } from '@/components/utils/SEOLoader';
+import { baseServerSideProps } from '@/utils/serverside/props';
 
 
 
@@ -42,17 +42,6 @@ export const getServerSideProps = (ctx?: any) => baseServerSideProps('home', ctx
 export const Home = (props: any) => {
 
 
-    console.log("\nHome -> canonical: " +  props.seo.canonical)
-    // console.log("\nHome -> context: " +  props.ctx)
-
-
-    console.log("\nHome -> process.env:")
-    console.log(process.env.NEXT_PUBLIC_GA4_TRACKING_ID)
-    console.log(process.env.NEXT_PUBLIC_BACKEND_ENDPOINT)
-    console.log(process.env.NEXT_PUBLIC_HUBSPOT_PORTAL_ID)
-    console.log(process.env.NEXT_PUBLIC_HUBSPOT_CONTACT_FORM_ID)
-
-
     useTitle(props.content.title)
     // useTitle('Cord Cut Help | Home Page | Help Save Money on TV and Internet Bills')
 
@@ -66,10 +55,10 @@ export const Home = (props: any) => {
     ]
 
     if (typeof window === "undefined") {
-        console.log("\nHome -> Server-Side:")
+        process.env.DEV && console.log("\nHome -> Server-Side:")
         // console.log(props)
     } else {
-        console.log("\nHome -> Client-Side:")
+        process.env.DEV && console.log("\nHome -> Client-Side:")
         // console.log(props)
     }
 
@@ -80,14 +69,9 @@ export const Home = (props: any) => {
         // reactProject/src/App.tsx
         <div className='App'>
 
-            {/* <SEOLoader 
-                title={props.content.title}
-                jsonLd={props.seo.jsonLd} 
-                metaTags={props.seo.metaTags} 
-                canonical={true} 
-            /> */}
 
-            <SEOLoader { ...reducePropsForSEOLoader(props)} />
+            <SEO.Loader {...SEO.reduceProps(props)} />
+            {/* <SEOLoader { ...reducePropsForSEOLoader(props)} /> */}
 
 
 

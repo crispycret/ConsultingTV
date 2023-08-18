@@ -5,14 +5,14 @@ import ga from "@/apis/analytics/ga4";
 
 
 export const getServerSideProps = () => {
-    console.log("MyApp -> getServersideProps():")
+    process.env.DEV && console.log("MyApp -> getServersideProps():")
     // ga.initialize()
 }
 
 function MyApp({ Component, pageProps }: any) {
 
     if (typeof window !== "undefined") {
-        console.log("\nMyApp -> Client-Side:")
+        process.env.DEV && console.log("\nMyApp -> Client-Side:")
         ga.initialize()
     }
 
