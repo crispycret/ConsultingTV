@@ -1,9 +1,14 @@
 
 
 import hubspot from "./hubspot";
+import firebase from './firebase'
 
+export const backend = {
+    hubspot, 
+    firebase
+}
 
-export default { hubspot };
+export default { hubspot, firebase };
 
 
 // import mailchimp from "./mailchimp";

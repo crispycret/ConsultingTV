@@ -38,7 +38,10 @@ export const SEOLoader = (props: SEOLoaderProps) => {
             {/* Include the JSON-LD data and Meta Tags in the <head> of the document */}
             {/* { props.canonical && <link rel="canonical" href="https://cordcuthelp.com/" /> } */}
             { props.canonical && <link rel="canonical" href={ `${props.canonical}` }/> }
-            { props.metaTags && props.metaTags.map((metaTag: any, index: number) => <meta { ...metaTag } key={ index } />) }
+            { props.metaTags && 
+                Object.keys(props.metaTags).map((key: any, index: number) => 
+                <meta { ...props.metaTags[key] } key={ index } />) 
+            }
             { props.jsonLd && <script type="application/ld+json">{ JSON.stringify(props.jsonLd) }</script> }
         </Head>
     )

@@ -26,8 +26,11 @@ def preprocess_request():
         if not request.is_json: return abort(400, error_msg)
         params = request.json
 
+        print('\n')
+        print (params)
+
         path = params.get('path') # global
-        filename = params.get('file') # jsonLd.json
+        filename = params.get('filename') # jsonLd.json
         if not path or not filename: return abort(400, error_msg)
         
         url = f'{Configuration.FIREBASE_ENDPOINT}/{path}/{filename}'
