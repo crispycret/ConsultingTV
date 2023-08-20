@@ -28,7 +28,7 @@ def preprocess_request():
             return abort(400, "Request body must be JSON.")
 
         params = request.get_json()
-
+        
         path = params.get('path') # global
         filename = params.get('filename') # jsonLd.json
         if not path or not filename: return abort(400, error_msg)    
@@ -36,7 +36,7 @@ def preprocess_request():
         url = f'{Configuration.FIREBASE_ENDPOINT}/{path}/{filename}'
 
         payload = params.get('data') # contents of jsonLd.json
-        if (payload): payload = payload
+        if (payload): payload = json.dumps(payload)
         
         return [url, payload]
     except BadRequest as e:
@@ -45,13 +45,7 @@ def preprocess_request():
 
 
 def firebase_request():
-    import pprint
-    pprint.pprint(request.is_json)
-    # pprint.pprint(request.get_json())
-    # pprint.pprint(request.get_data())
-    
     url, payload = preprocess_request()
-
     response = requests.request(request.method, url, data=payload)
 
     data = {
