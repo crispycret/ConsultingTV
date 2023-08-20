@@ -22,7 +22,7 @@ def bad_request_error(error):
 
 
 def preprocess_request():
-    error_msg = 'Requires JSON body with keys `path`, `file`. Optionally the key `data` is used to write data to firebase.'
+    error_msg = 'Requires JSON body with keys `path`, `filename`. Optionally the key `data` is used to write data to firebase.'
     try:
         if not request.is_json: 
             return abort(400, "Request body must be JSON.")

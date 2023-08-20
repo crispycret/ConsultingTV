@@ -8,7 +8,6 @@ import { Landing, Scene1, Scene2 } from "@/components/scenes/home";
 
 import SEO from '@/utils/SEO';
 import { baseServerSideProps } from '@/utils/serverside/props';
-import firebase from '@/apis/backend/firebase';
 
 
 
@@ -45,6 +44,7 @@ export const Home = (props: any) => {
         // reactProject/src/App.tsx
         <div className='App'>
 
+            {/* SEO - Inlcude a way to retrieve global props in the SEO.Loader flow to reduce the number of SEO.Loader calls */}
             <SEO.Loader jsonLd={props.seo.global.jsonLd} metaTags={props.seo.global.metaTags} />
             <SEO.Loader {...props} />
 

@@ -34,7 +34,6 @@ import SEO  from '@/utils/SEO'
 export const baseServerSideProps = async (page='home', context?: any) => {
     process.env.DEV && console.log(`\n${page} -> getServersideProps():`)
 
-
     return {
         props: {
             content: await SEO.load(page, SEO.Types.page),
