@@ -79,9 +79,11 @@ export const Firebase = () => {
       const response = await request(method, '/', {filename, path})
       return response.data
     } catch (error) { 
+      if (process.env.DEV) { 
         console.log("request_page_file Failed!!!!!!!!")
         console.log(error)
       }
+    }
     return null
   }
 

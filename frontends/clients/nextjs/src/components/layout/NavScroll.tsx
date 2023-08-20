@@ -9,6 +9,7 @@ function NavScroll() {
   
   return (
     // <Navbar expand="lg" className="bg-body-tertiary bg-transparent position-fixed w-100">
+    // <Navbar expand="lg" className={`bg-transparent'} position-fixed w-100 navbar-dark`}>
     <Navbar expand="lg" className={`${isTop ? 'bg-transparent' : 'bg-dark'} position-fixed w-100 navbar-dark`}>
       <Container fluid>
         <Navbar.Brand href="/">CordCutHelp</Navbar.Brand>
