@@ -11,8 +11,7 @@ from core import Configuration
 
 @firebase.route('/', methods=['PATCH', 'GET'])
 @forward_to_firebase
-def forward(): 
-    print('forward')
+def forward(): pass
 
 
 

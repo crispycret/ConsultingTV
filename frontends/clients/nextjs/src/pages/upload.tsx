@@ -35,10 +35,6 @@ export const getServerSideProps = async (context: any) => {
         require('@/assets/data/global/metaTags.json')
     )
 
-    // props.res3 = res3.data
-    // console.log(res3)
-    // console.log('\n')
-
     // res2 = await backend.firebase.update_file(
     //     'page.json',
     //     'nextjs/assets/data/home',
@@ -59,16 +55,11 @@ export const getServerSideProps = async (context: any) => {
     // console.log(res2)
     // console.log('\n')
 
-    // let res6 = await backend.firebase.update_file(
-    //     'metaTags.json',
-    //     'nextjs/assets/data/home',
-    //     require('@/assets/data/home/metaTags.json')
-    // )
-
-    // props.res6 = res6.data
-    // console.log(res6.data)
-    // console.log('\n')
-
+    let res6 = await backend.firebase.update_file(
+        'metaTags.json',
+        'nextjs/assets/data/home',
+        require('@/assets/data/home/metaTags.json')
+    )
 
 
     return {

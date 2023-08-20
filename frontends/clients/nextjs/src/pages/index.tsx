@@ -6,61 +6,37 @@ import NavScroll from '@/components/layout/NavScroll';
 import Footer from '@/components/layout/Footer';
 import { Landing, Scene1, Scene2 } from "@/components/scenes/home";
 
-
-
-// import SEO components
 import SEO from '@/utils/SEO';
-// import { SEOLoader, reducePropsForSEOLoader } from '@/components/utils/SEOLoader';
 import { baseServerSideProps } from '@/utils/serverside/props';
+import firebase from '@/apis/backend/firebase';
 
 
 
-/**
- * Fetch API data, add SEO tags, and pass data to the page component.
- * @returns 
- */
-export const getServerSideProps = (ctx?: any) => baseServerSideProps('home', ctx);
+// Fetch API data, add SEO tags, and pass data to the page component.
+// export const getServerSideProps = (ctx?: any) => baseServerSideProps('home', ctx);
+export const getServerSideProps = async (ctx?: any) => {
 
-// export const getServerSideProps = () => {
-//     console.log("\nHome -> getServersideProps():")
-//     console.log("process.env.TEST_ENV_VAR: " + process.env.TEST_ENV_VAR)
-//     // import page content from json file
-//     const content = require('@/assets/data/content/home-page.json')
-//     return {
-//         props: {
-//             content,
-//             seo: {
-//                 metaTags: SEO.load('home/meta-tags.json'),
-//                 jsonLd: SEO.load('home/json-ld.json')
-//             },
-//         }
-//     }
-// }
+    // let globalJsonLd = await firebase.request_page_file('get', 'jsonLd.json', 'global')
+    let props = (await baseServerSideProps('home', ctx)).props
 
+    return {
+        props: {
+            ...props,
+        }
+    }
+}
 
 
 export const Home = (props: any) => {
 
 
-    useTitle(props.content.title)
-    // useTitle('Cord Cut Help | Home Page | Help Save Money on TV and Internet Bills')
+    // List of components to map to the content entities of the content json file.
+    const scenes: any[] = [ Landing, Scene1, Scene2 ]
+
+    // const backupTitle = 'Cord Cut Help | Home Page | Help Save Money on TV and Internet Bills'
+    // useTitle(props?.content?.title || backupTitle)
 
     const { mobile } = useMobile()
-
-    // List of components to map to the content entities of the content json file.
-    const scenes: any[] = [
-        Landing,
-        Scene1,
-        Scene2
-    ]
-
-    if (typeof window === "undefined") {
-        process.env.DEV && console.log("\nHome -> Server-Side:")
-        // console.log(props)
-    } else {
-        process.env.DEV && console.log("\nHome -> Client-Side:")
-        // console.log(props)
-    }
 
 
     // Transcribed from react project
@@ -69,11 +45,8 @@ export const Home = (props: any) => {
         // reactProject/src/App.tsx
         <div className='App'>
 
-
-            <SEO.Loader {...SEO.reduceProps(props)} />
-            {/* <SEOLoader { ...reducePropsForSEOLoader(props)} /> */}
-
-
+            <SEO.Loader jsonLd={props.seo.global.jsonLd} metaTags={props.seo.global.metaTags} />
+            <SEO.Loader {...props} />
 
             {/* Main Layout */}
             {/* reactProject/src/components/layouts/MainLayout.tsx */}
@@ -87,7 +60,7 @@ export const Home = (props: any) => {
                     <div className={` w-100 min-vh-100 bg-secondary text-white`}>
 
                         {/* Loop through the content entities and draw a scene using that entity data if there is a scene to draw. */}
-                        {props.content.entities.map((entity: any, index: number) => {
+                        {props.content?.entities && props.content.entities.map((entity: any, index: number) => {
                             return scenes.length > index ? (
                                 <div key={index} className="">
                                     {/* Render the component and pass the entity data */}

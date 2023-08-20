@@ -1,7 +1,4 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-
-
 
 export interface SEOLoaderProps {
     jsonLd?: any;
@@ -31,7 +28,11 @@ export interface SEOLoaderProps {
  * 
  * SEOProps = { jsonLd: {}, metaTags: {}, canonical: 'https://cordcuthelp.com/about', title: 'About' }
  */
-export const SEOLoader = (props: SEOLoaderProps) => {
+// export const SEOLoader = (props: SEOLoaderProps) => {
+export const SEOLoader = (props: any) => {
+
+    props = reducePropsForSEOLoader(props)
+
     return (
         <Head>
             { props.title && <title>{ props.title }</title> }
@@ -53,12 +54,13 @@ export default SEOLoader;
 
 
 
+
+
 /**
  * Reduces the props object (baseServerSideProps) to only the props needed for the SEOLoader component.
  */
 export const reducePropsForSEOLoader = (props: any) => {
 // export const getSEOLoaderProps = (props: any) => {
-    console.log("\nreducePropsForSEOLoader() -> canonical: " + props.seo.canonical)
     return {
         title: props.content && props.content.title,
         jsonLd: props.seo && props.seo.jsonLd,

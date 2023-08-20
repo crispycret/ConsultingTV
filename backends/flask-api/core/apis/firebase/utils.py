@@ -19,37 +19,45 @@ def bad_request_error(error):
     return jsonify(response), 400
 
 
+
+
 def preprocess_request():
+    error_msg = 'Requires JSON body with keys `path`, `file`. Optionally the key `data` is used to write data to firebase.'
+    try:
+        if not request.is_json: 
+            return abort(400, "Request body must be JSON.")
 
-        error_msg = 'Requires JSON body with keys `path`, `file`. Optionally the key `data` is used to write data to firebase.'
-                
-        if not request.is_json: return abort(400, error_msg)
-        params = request.json
-
-        print('\n')
-        print (params)
+        params = request.get_json()
 
         path = params.get('path') # global
         filename = params.get('filename') # jsonLd.json
-        if not path or not filename: return abort(400, error_msg)
+        if not path or not filename: return abort(400, error_msg)    
         
         url = f'{Configuration.FIREBASE_ENDPOINT}/{path}/{filename}'
 
         payload = params.get('data') # contents of jsonLd.json
-        if (payload): payload = json.dumps(payload)
+        if (payload): payload = payload
         
         return [url, payload]
+    except BadRequest as e:
+        print (e)
+        return abort(400, "Unknown Error")
 
 
 def firebase_request():
-    print('firebase_request')
+    import pprint
+    pprint.pprint(request.is_json)
+    # pprint.pprint(request.get_json())
+    # pprint.pprint(request.get_data())
     
     url, payload = preprocess_request()
-    
+
     response = requests.request(request.method, url, data=payload)
-    response.json()
-    return {
-        'status': response.status_code, 
-        'data': response.json()        
+
+    data = {
+        'status': response.status_code,
+        'data': response.json()
     }
+
+    return data
     

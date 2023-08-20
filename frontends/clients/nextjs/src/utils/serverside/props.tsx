@@ -12,6 +12,8 @@
  * import { baseServerSideProps } from "@/utils/serverside/props"
  * 
  * export const getServerSideProps = baseServerSideProps('about')
+ * or
+ * export const getServerSideProps = async (ctx) => baseServerSideProps('about', ctx)
  * 
  * export const About = (props) => {
  *    return (
@@ -28,39 +30,29 @@
 import SEO  from '@/utils/SEO'
 
 
-// object that contains all global SEO tags and JSON-LD structured data
-export const globalSEOProps = {
-    metaTags: SEO.metaTags.global,
-    jsonLd: SEO.jsonLd.global
-}
 
-
-
-export const baseServerSideProps = (page='home', context?: any) => {
+export const baseServerSideProps = async (page='home', context?: any) => {
     process.env.DEV && console.log(`\n${page} -> getServersideProps():`)
-    
-    // import page content from json file
-    // const content = require('@/assets/data/content/home/page.json')
-    const content = SEO.load(page, SEO.Types.page)
-    
-    
+
+
     return {
         props: {
-            content: SEO.load(page, SEO.Types.page),
+            content: await SEO.load(page, SEO.Types.page),
             seo: {
-                global: globalSEOProps,
-                metaTags: SEO.loadMetaTags(page),
-                jsonLd: SEO.loadJsonLd(page),
-                canonical: SEO.getHost(context)
+                global: {
+                    metaTags: await SEO.metaTags.global,  // Load global meta tags
+                    jsonLd: await SEO.jsonLd.global       // Load global JSON-LD data
+                },
+                metaTags: await SEO.loadMetaTags(page),   // Load meta tags for this page
+                jsonLd: await SEO.loadJsonLd(page),       // Load JSON-LD data for this page
+                canonical: await SEO.getHost(context)     // Set canonical URL to the current page.
             },
         }
     }
 }
 
 
-
 export const defaultServerSideProps = baseServerSideProps()
-
 
 
 
