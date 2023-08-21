@@ -46,7 +46,7 @@ export const Home = (props: any) => {
         <div className='App'>
 
             {/* SEO - Inlcude a way to retrieve global props in the SEO.Loader flow to reduce the number of SEO.Loader calls */}
-            <SEO.Loader jsonLd={props.seo.global.jsonLd} metaTags={props.seo.global.metaTags} />
+            {/* <SEO.Loader jsonLd={props.seo.global.jsonLd} metaTags={props.seo.global.metaTags} /> */}
             <SEO.Loader {...props} />
 
             {/* Main Layout */}

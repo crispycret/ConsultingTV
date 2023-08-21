@@ -6,6 +6,7 @@ export interface SEOLoaderProps {
     jsonLd?: any;
     metaTags?: any; // Meta Tags object, each key is a meta tag name, each value is a meta tag object
     // Refactor to do what the above comment says. Currently each key is an index number
+    global?: any; // Global SEO props
 }
 
 /**
@@ -36,15 +37,27 @@ export const SEOLoader = (props: any) => {
 
     return (
         <Head>
+
+            {/* Apply global meta tags and JSON-LD if available */}
+            { props.global && props.global.metaTags &&
+                Object.keys(props.global.metaTags).map((key: any, index: number) =>
+                <meta { ...props.global.metaTags[key] } key={ index } />)
+            }
+            { props.global && props.globaljsonLd && 
+                <script type="application/ld+json">{ JSON.stringify(props.global.jsonLd) }</script> 
+            }
+
+            {/* Apply page specific title and canonical tag if available */}
             { props.title && <title>{ props.title }</title> }
-            {/* Include the JSON-LD data and Meta Tags in the <head> of the document */}
-            {/* { props.canonical && <link rel="canonical" href="https://cordcuthelp.com/" /> } */}
             { props.canonical && <link rel="canonical" href={ `${props.canonical}` }/> }
+
+            {/* Apply page specific meta tags and JSON-LD if available */}
             { props.metaTags && 
                 Object.keys(props.metaTags).map((key: any, index: number) => 
                 <meta { ...props.metaTags[key] } key={ index } />) 
             }
             { props.jsonLd && <script type="application/ld+json">{ JSON.stringify(props.jsonLd) }</script> }
+            
         </Head>
     )
 }
@@ -101,6 +114,10 @@ export const reducePropsForSEOLoader = (props: any): SEOLoaderProps => {
             ? props.canonical
             : props.seo && props.seo.canonical
             ? props.seo.canonical
-            : null
+            : null,
+        
+        global: props.seo && props.seo.global 
+            ? props.seo.global 
+            : null, 
     }
 }
