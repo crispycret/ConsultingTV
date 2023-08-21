@@ -1,0 +1,4 @@
+.navbar {
+    min-height: 100vh !important; 
+    align-items: flex-start !important;
+  }
