@@ -1,10 +1,11 @@
 import Head from 'next/head';
 
 export interface SEOLoaderProps {
+    title?: string; // Page Title
+    canonical?: string; // Special Meta Tag - Canonical URL
     jsonLd?: any;
-    metaTags?: any;
-    canonical?: string;
-    title?: string;
+    metaTags?: any; // Meta Tags object, each key is a meta tag name, each value is a meta tag object
+    // Refactor to do what the above comment says. Currently each key is an index number
 }
 
 /**
@@ -58,13 +59,48 @@ export default SEOLoader;
 
 /**
  * Reduces the props object (baseServerSideProps) to only the props needed for the SEOLoader component.
+ * 
+ * Include some basic fallbacks for the title, jsonLd, metaTags, and canonical props.
+ * Nested ternary operators are used to check for the existence of specific keys in a range of patterns.
+ * 
+ * @param props
+ * @returns
+ * 
+ * @example - Here is how to use this function
+ * 
+ * @example - Here is how this function works
+ * 
+ * let props = {title: '', jsonLd: {}, metaTags: {}, canonical: ''
+ * let seoProps = reducePropsForSEOLoader(props)
+ * or
+ * let props = {content: {title: ''}, seo: {jsonLd: {}, metaTags: {}, canonical: ''}}
+ * or, a combination of the two
+ * let props = {content: {title: ''}, jsonLd: {}, metaTags: {}, seo {canonical: ''}}
+ *  
  */
-export const reducePropsForSEOLoader = (props: any) => {
+export const reducePropsForSEOLoader = (props: any): SEOLoaderProps => {
 // export const getSEOLoaderProps = (props: any) => {
     return {
-        title: props.content && props.content.title,
-        jsonLd: props.seo && props.seo.jsonLd,
-        metaTags: props.seo && props.seo.metaTags,
-        canonical: props.seo && props.seo.canonical,
+        title: props.titile ? props.title 
+            : props.content && props.content.title ? props.content.title 
+            : null,
+            
+        jsonLd: props.jsonLd 
+            ? props.jsonLd 
+            : props.seo && props.seo.jsonld 
+            ? props.seo.jsonLd
+            : null,
+
+        metaTags: props.metaTags 
+            ? props.metaTags
+            : props.seo && props.seo.metaTags
+            ? props.seo.metaTags
+            : null,
+
+        canonical: props.canonical
+            ? props.canonical
+            : props.seo && props.seo.canonical
+            ? props.seo.canonical
+            : null
     }
 }
